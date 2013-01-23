@@ -263,4 +263,8 @@
     <string name="navring_choose_action_title">Choose action</string>
     <string name="navring_action_power_menu">Power menu</string>
     <string name="navring_action_screenrecord">Screen record</string>
+
+    <!-- USB Mass Storage -->
+    <string name="usb_mass_storage_title">Mass storage (UMS)</string>
+    <string name="usb_mass_storage_summary">Lets you transfer any files between your computer and your SD card by mounting it as a flash device</string>
     </resources>
