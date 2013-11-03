@@ -24,6 +24,8 @@
     android:paddingBottom="5dip"
     android:orientation="vertical"
     android:clipToPadding="false"
+    android:paddingBottom="5dip"
+    android:orientation="vertical"
     android:scrollbarStyle="@*android:integer/preference_fragment_scrollbarStyle">
 
     <!-- App snippet -->

@@ -83,6 +83,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -142,7 +143,7 @@ public class InstalledAppDetails extends Fragment
     private Button mClearDataButton;
     private Button mMoveAppButton;
     private CompoundButton mNotificationSwitch;
-    private CompoundButton mPrivacyGuardSwitch;
+    private Button mAppOpsButton;
 
     private PackageMoveObserver mPackageMoveObserver;
     private AppOpsManager mAppOps;
@@ -401,15 +402,17 @@ public class InstalledAppDetails extends Fragment
         }
     }
 
-    private void initPrivacyGuardButton() {
-        if (mPrivacyGuardSwitch == null) {
-            return;
+    private void initAppOpsButton() {
+        boolean enabled = true;
+        if (isThisASystemPackage()) {
+            enabled = false;
         }
-        mAppOps = (AppOpsManager) getActivity().getSystemService(Context.APP_OPS_SERVICE);
-        boolean isEnabled = mAppOps.getPrivacyGuardSettingForPackage(
-            mAppEntry.info.uid, mAppEntry.info.packageName);
-        mPrivacyGuardSwitch.setChecked(isEnabled);
-        mPrivacyGuardSwitch.setOnCheckedChangeListener(this);
+
+        mAppOpsButton.setEnabled(enabled);
+        if (enabled) {
+            // Register listener
+            mAppOpsButton.setOnClickListener(this);
+        }
     }
 
     /** Called when the activity is first created. */
@@ -489,6 +492,9 @@ public class InstalledAppDetails extends Fragment
         
         mNotificationSwitch = (CompoundButton) view.findViewById(R.id.notification_switch);
         mPrivacyGuardSwitch = (CompoundButton) view.findViewById(R.id.privacy_guard_switch);
+
+        mAppOps = (AppOpsManager) getActivity().getSystemService(Context.APP_OPS_SERVICE);
+        mAppOpsButton = (Button) view.findViewById(R.id.app_ops_button);
 
         return view;
     }
@@ -773,7 +779,8 @@ public class InstalledAppDetails extends Fragment
         }
 
         // Security permissions section
-        LinearLayout permsView = (LinearLayout) mRootView.findViewById(R.id.permissions_section);
+        RelativeLayout permsView =
+            (RelativeLayout) mRootView.findViewById(R.id.permissions_section);
         AppSecurityPermissions asp = new AppSecurityPermissions(getActivity(), packageName);
         int premiumSmsPermission = getPremiumSmsPermission(packageName);
         // Premium SMS permission implies the app also has SEND_SMS permission, so the original
@@ -1031,11 +1038,13 @@ public class InstalledAppDetails extends Fragment
             initDataButtons();
             initMoveButton();
             initNotificationButton();
+            initAppOpsButton();
         } else {
             mMoveAppButton.setText(R.string.moving);
             mMoveAppButton.setEnabled(false);
             mUninstallButton.setEnabled(false);
             mSpecialDisableButton.setEnabled(false);
+            mAppOpsButton.setEnabled(false);
         }
     }
 
@@ -1445,6 +1454,11 @@ public class InstalledAppDetails extends Fragment
             mMoveInProgress = true;
             refreshButtons();
             mPm.movePackage(mAppEntry.info.packageName, mPackageMoveObserver, moveFlags);
+        } else if (v == mAppOpsButton) {
+            Intent intent = new Intent(
+                    android.provider.Settings.ACTION_APP_OPS_DETAILS_SETTINGS,
+                    Uri.parse("package:" + mAppEntry.info.packageName));
+            startActivity(intent);
         }
     }
 
