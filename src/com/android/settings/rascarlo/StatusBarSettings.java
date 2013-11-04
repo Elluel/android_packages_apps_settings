@@ -27,6 +27,7 @@ OnPreferenceChangeListener {
 
     // General
     private static String STATUS_BAR_GENERAL_CATEGORY = "status_bar_general_category";
+    // Brightness control
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     // Network Traffic
     private static final String NETWORK_TRAFFIC_STATE = "network_traffic_state";
@@ -35,8 +36,11 @@ OnPreferenceChangeListener {
     // Quick Settings
     private static final String QUICK_SETTINGS_CATEGORY = "status_bar_quick_settings_category";
     private static final String QUICK_PULLDOWN = "quick_pulldown";
-    private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
 
+    // General
+    private PreferenceCategory mStatusBarGeneralCategory;
+    // Brightness control
+    private CheckBoxPreference mStatusBarBrightnessControl;
     // Quick Settings
     private ListPreference mQuickPulldown;
     // Network Traffic
@@ -49,8 +53,7 @@ OnPreferenceChangeListener {
     private int MASK_DOWN;
     private int MASK_UNIT;
     private int MASK_PERIOD;
-    private CheckBoxPreference mStatusBarBrightnessControl;
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +65,8 @@ OnPreferenceChangeListener {
 
             // General category
             mStatusBarGeneralCategory = (PreferenceCategory) findPreference(STATUS_BAR_GENERAL_CATEGORY);
+            // Status bar brightness control
             mStatusBarBrightnessControl = (CheckBoxPreference) getPreferenceScreen().findPreference(STATUS_BAR_BRIGHTNESS_CONTROL);
-                // Status bar brightness control
                 mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(), 
                         Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
                 try {
