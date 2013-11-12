@@ -31,6 +31,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.UserInfo;
 import android.hardware.Camera;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.UserHandle;
@@ -44,7 +45,10 @@ import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.security.KeyStore;
 import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.DisplayInfo;
+import android.view.WindowManager;
 
 import com.android.internal.widget.LockPatternUtils;
 
@@ -92,6 +96,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String KEY_ENABLE_CAMERA = "lockscreen_enable_camera";
     private static final String KEY_ENABLE_POWER_MENU = "lockscreen_enable_power_menu";
     private static final String KEY_SEE_THROUGH = "lockscreen_see_through";
+    private static final String LOCKSCREEN_MAXIMIZE_WIDGETS = "lockscreen_maximize_widgets";
 
 
     private PackageManager mPM;
@@ -117,6 +122,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private CheckBoxPreference mEnableCameraWidget;
     private CheckBoxPreference mEnablePowerMenu;
     private CheckBoxPreference mSeeThrough;
+    private CheckBoxPreference mMaximizeKeyguardWidgets;
 
     private Preference mNotificationAccess;
 
@@ -330,6 +336,21 @@ public class SecuritySettings extends RestrictedSettingsFragment
                     mEnableKeyguardWidgets.setSummary("");
                 }
                 mEnableKeyguardWidgets.setEnabled(!disabled);
+            }
+        }
+
+        mMaximizeKeyguardWidgets = (CheckBoxPreference) root.findPreference(LOCKSCREEN_MAXIMIZE_WIDGETS);
+        if (mMaximizeKeyguardWidgets != null) {
+            if (isTablet()) {
+                PreferenceGroup securityCategory
+                        = (PreferenceGroup) root.findPreference(KEY_SECURITY_CATEGORY);
+                if (securityCategory != null) {
+                    securityCategory.removePreference(root.findPreference(LOCKSCREEN_MAXIMIZE_WIDGETS));
+                    mMaximizeKeyguardWidgets = null;
+                }
+            } else {
+                mMaximizeKeyguardWidgets.setChecked(Settings.System.getInt(getContentResolver(),
+                        Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0) == 1);
             }
         }
 
@@ -572,6 +593,14 @@ public class SecuritySettings extends RestrictedSettingsFragment
 
         if (mEnableKeyguardWidgets != null) {
             mEnableKeyguardWidgets.setChecked(lockPatternUtils.getWidgetsEnabled());
+            if (mMaximizeKeyguardWidgets != null) {
+                mMaximizeKeyguardWidgets.setEnabled(mEnableKeyguardWidgets.isChecked());
+                if (!mMaximizeKeyguardWidgets.isEnabled()) {
+                    mMaximizeKeyguardWidgets.setChecked(false);
+                    Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                        Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0);
+                }
+            }
         }
     }
 
@@ -625,6 +654,17 @@ public class SecuritySettings extends RestrictedSettingsFragment
             lockPatternUtils.setPowerButtonInstantlyLocks(isToggled(preference));
         } else if (KEY_ENABLE_WIDGETS.equals(key)) {
             lockPatternUtils.setWidgetsEnabled(mEnableKeyguardWidgets.isChecked());
+            if (mMaximizeKeyguardWidgets != null) {
+            mMaximizeKeyguardWidgets.setEnabled(mEnableKeyguardWidgets.isChecked());
+                if (!mMaximizeKeyguardWidgets.isEnabled()) {
+                    mMaximizeKeyguardWidgets.setChecked(false);
+                    Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                        Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0);
+                }
+            }
+        } else if (preference == mMaximizeKeyguardWidgets) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, isToggled(preference) ? 1 : 0);
         } else if (preference == mShowPassword) {
             Settings.System.putInt(getContentResolver(), Settings.System.TEXT_SHOW_PASSWORD,
                     mShowPassword.isChecked() ? 1 : 0);
@@ -725,5 +765,11 @@ public class SecuritySettings extends RestrictedSettingsFragment
         Intent intent = new Intent();
         intent.setClassName("com.android.facelock", "com.android.facelock.AddToSetup");
         startActivity(intent);
+    }
+
+    private boolean isTablet() {
+    return (getActivity().getApplicationContext().getResources().getConfiguration().screenLayout
+            & Configuration.SCREENLAYOUT_SIZE_MASK)
+            >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 }
