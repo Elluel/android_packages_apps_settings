@@ -61,7 +61,14 @@
             android:summary="@string/lockscreen_enable_camera_summary"
             android:persistent="false"/>
 
-        <CheckBoxPreference
+	 <CheckBoxPreference
+            android:key="lockscreen_maximize_widgets"
+            android:title="@string/security_maximize_widgets_title"
+            android:persistent="false"
+            android:dependency="keyguard_enable_widgets"/>
+
+
+	<CheckBoxPreference
             android:key="lockscreen_enable_power_menu"
             android:title="@string/lockscreen_enable_power_menu_title"
             android:summary="@string/lockscreen_enable_power_menu_summary"
