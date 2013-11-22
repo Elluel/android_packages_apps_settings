@@ -561,4 +561,12 @@
     <string name="low_battery_warning_policy_sound">Sound only</string>
     <string name="battery_prefs_title">Options</string>
     <string name="battery_stats_title">Statistics</string>
+
+    <!-- Battery Icon selection -->
+    <string name="pref_battery_indicator_title">Battery indicator</string>
+    <string name="battery_status_icon_title">Status icon</string>
+    <string name="battery_bar">Battery bar</string>
+    <string name="battery_bar_percent">Battery bar &amp; percent</string>
+    <string name="battery_circle">Battery circle</string>
+    <string name="battery_circle_percent">Battery circle &amp; percent</string>
 </resources>
