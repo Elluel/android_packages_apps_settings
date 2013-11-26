@@ -273,4 +273,9 @@
     <string name="status_bar_show_network_stats_summary">Show network speeds in statusbar</string>
     <string name="status_bar_network_stats_update_title">Update frequency</string>
     <string name="status_bar_network_stats_update_summary">How often is indicator updated</string>
+
+    <!-- AppOps additions -->
+    <string name="appops_settings">Apps permissions</string>
+    <string name="appops_sysapp_beware">Beware!</string>
+    <string name="appops_sysapp_warning">"Changing permissions of core Android components might lead to undesired behavior. Change settings here at your own risk!</string>
 </resources>
