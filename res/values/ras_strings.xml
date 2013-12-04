@@ -6,11 +6,13 @@
     <string name="build_date_default">2012-01-01-0000</string>
 
     <!-- Generic strings -->
-    <string name="ok_string">Ok</string>
+    <string name="ok_string">OK</string>
     <string name="default_string">Default</string>
     <string name="enabled_string">Enabled</string>
     <string name="disabled_string">Disabled</string>
     <string name="general_string">General</string>
+    <string name="reset_string">Reset</string>
+    <string name="empty_string">Empty</string>
 
     <!-- Volume Adjust sound -->
     <string name="volume_adjust_sounds_enable_title">Volume adjustment sound</string>
@@ -56,20 +58,26 @@
 
     <!-- Status bar  -->
     <string name="status_bar_title">Status bar</string>
+    <string name="status_bar_battery_category">Battery</string>
+    <!-- Status bar circle battery -->
+    <string name="status_bar_battery_title">Style</string>
+    <string name="status_bar_style_icon">Icon</string>
+    <string name="status_bar_style_hidden">Hidden</string>
+    <string name="status_bar_battery_status_circle">Circle</string>
+    <string name="status_bar_battery_status_circle_percentage">Circle with percentage</string>
     <!-- Statusbar native battery percent -->
-    <string name="status_bar_native_battery_percentage">Native battery percentage</string>
+    <string name="status_bar_native_battery_percentage">Native percentage</string>
     <!-- Status bar clock -->
     <string name="status_bar_clock_title">Clock</string>
     <string name="status_bar_show_clock_title">Show clock</string>
     <string name="status_bar_am_pm_title">AM/PM style</string>
     <string name="status_bar_am_pm_info">24-hour clock must be disabled</string>
-    <!-- Quick settings -->
+    <!-- Status bar quick settings -->
     <string name="status_bar_quick_settings_category">Quick settings</string>
     <string name="quick_pulldown_title">Quick pulldown</string>
     <string name="quick_pulldown_off">Off</string>
     <string name="quick_pulldown_left">Left</string>
     <string name="quick_pulldown_right">Right</string>
-    
     <!-- Status bar brightness control -->
     <string name="status_bar_toggle_brightness">Brightness control</string>
     <string name="status_bar_toggle_brightness_summary">Adjust brightness by sliding across status bar</string>
@@ -136,9 +144,18 @@
 
     <!-- Navigation Bar -->
     <string name="navigation_bar_title">Navigation bar</string>
-
+    <!-- Navigation Bar buttons -->
+    <string name="navigation_bar_buttons_layout_title">Buttons and layout</string>
+    <string name="navigation_bar_help_text">1 - To begin editing, tap the lock icon\n\n2 - Tap any button to assign or change functionality\n\n3 - Long press any button to rearrange the order\n\n4 - To save, tap the lock icon again\n\n5 - To restore system default, tap the reset button\n\n</string>
+    <string name="navigation_bar_tips">\u2022 Actions can only be assigned to one button at a time\n\n\u2022 The home button cannot be re-assigned\n\n\u2022 Side buttons cannot be rearranged</string>
+    <string name="navigation_bar_tips_title">Quick tips</string>
+    <string name="navigation_bar_reset_message">Delete current settings and restore to default?</string>
+    <string name="navigation_bar_save_message">Navigation bar settings saved</string>
+    <string name="navigation_bar_reset_toast">Navigation bar reset to default</string>
+    <string name="navigation_bar_menu_editable">Editable</string>
+    <string name="navigation_bar_menu_locked">Locked</string>
     <!-- Navigation Bar Height -->
-    <string name="navigation_bar_height">Navigation bar height</string>
+    <string name="navigation_bar_height">Height</string>
     <string name="navigation_bar_height_48">48dp (default)</string>
     <string name="navigation_bar_height_44">44dp</string>
     <string name="navigation_bar_height_40">40dp</string>
@@ -188,4 +205,26 @@
     <string name="screen_recorder_bitrate_50000000">50000000</string>
     <string name="screen_recorder_bitrate_100000000">100000000</string>
 
+    <!-- Navigation ring shortcuts -->
+    <string name="lockscreen_target_info">Drag the slider to targets to assign shortcuts</string>
+    <string name="lockscreen_target_title">Slider shortcuts</string>
+    <string name="navigation_ring_title">Quick launch</string>
+    <string name="navring_target_reset_message">Delete all user created quick launch shortcuts and restore to default?</string>
+    <string name="navring_target_reset">Quick launch shortcuts reset to default</string>
+    <string name="applist_title">Apps</string>
+    <string name="picker_activities">Activities</string>
+    <string name="select_custom_app_title">Select custom app</string>
+    <string name="select_custom_activity_title">Select custom activity</string>
+    <string name="navring_action_open_ime_switcher">Open IME Switcher</string>
+    <string name="navring_action_kill_app">Kill app</string>
+    <string name="navring_action_none">None</string>
+    <string name="navring_action_take_screenshot">Take screenshot</string>
+    <string name="navring_action_ring_vibrate">Ring/Vibration</string>
+    <string name="navring_action_ring_silent">Ring/Silent</string>
+    <string name="navring_action_ring_vibrate_silent">Ring/Vibration/Silent</string>
+    <string name="navring_action_screen_off">Screen off</string>
+    <string name="navring_action_torch">Toggle torch</string>
+    <string name="navring_action_google_now">Google Now</string>
+    <string name="navring_choose_action_title">Choose action</string>
+    <string name="navring_action_power_menu">Power menu</string>
     </resources>

@@ -12,6 +12,11 @@
         android:key="navigation_bar"
         android:fragment="com.android.settings.rascarlo.NavigationBarSettings"
         android:title="@string/navigation_bar_title" />
+   
+   <PreferenceScreen
+        android:fragment="com.android.settings.rascarlo.NavRing"
+        android:key="navigation_ring"
+        android:title="@string/navigation_ring_title" />
 
    <PreferenceScreen
         android:fragment="com.android.settings.rascarlo.VolumeRocker"
