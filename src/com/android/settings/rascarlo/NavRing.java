@@ -257,7 +257,7 @@ public class NavRing extends Fragment implements
 
     private void onTargetChange(String uri) {
         if (uri.equals(ACTION_APP)) {
-            final String label = getResources().getString(R.string.empty_string);
+            final String label = getResources().getString(R.string.lockscreen_target_empty);
             final ShortcutIconResource iconResource =
                     ShortcutIconResource.fromContext(getActivity(), android.R.drawable.ic_delete);
             mPicker.pickShortcut(

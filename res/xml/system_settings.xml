@@ -12,16 +12,21 @@
         android:key="navigation_bar"
         android:fragment="com.android.settings.rascarlo.NavigationBarSettings"
         android:title="@string/navigation_bar_title" />
-   
+
+   <PreferenceScreen
+        android:fragment="com.android.settings.rascarlo.VolumeRocker"
+        android:key="volume_rocker_settings"
+        android:title="@string/volume_rocker_category_title" />
+
    <PreferenceScreen
         android:fragment="com.android.settings.rascarlo.NavRing"
         android:key="navigation_ring"
         android:title="@string/navigation_ring_title" />
 
    <PreferenceScreen
-        android:fragment="com.android.settings.rascarlo.VolumeRocker"
-        android:key="volume_rocker_settings"
-        android:title="@string/volume_rocker_category_title" />
+        android:fragment="com.android.settings.rascarlo.LockscreenTargets"
+        android:key="lockscreen_targets"
+        android:title="@string/lockscreen_target_title" />
 
     <PreferenceScreen
         android:fragment="com.android.settings.rascarlo.PlugInPromptSettings"
