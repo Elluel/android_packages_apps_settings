@@ -58,7 +58,7 @@
     <!-- Status bar  -->
     <string name="status_bar_title">Status bar</string>
     <!-- Status bar circle battery -->
-    <string name="status_bar_battery_title">Style</string>
+    <string name="status_bar_battery_title">Battery style</string>
     <string name="status_bar_style_icon">Icon</string>
     <string name="status_bar_style_icon_percentage">Icon with percentage</string>
     <string name="status_bar_style_hidden">Hidden</string>
