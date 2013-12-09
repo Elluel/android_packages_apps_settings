@@ -2,13 +2,8 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/navigation_bar_title">
+    android:title="@string/status_bar_title">
 
-    <PreferenceScreen
-        android:fragment="com.android.settings.rascarlo.NavBar"
-        android:key="navigation_bar_buttons_layout"
-        android:title="@string/navigation_bar_buttons_layout_title" />
-    
     <ListPreference
         android:key="navigation_bar_height"
         android:dialogTitle="@string/navigation_bar_height"
