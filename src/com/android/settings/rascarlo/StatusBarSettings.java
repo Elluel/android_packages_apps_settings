@@ -30,6 +30,10 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
     private static final String NETWORK_STATS_UPDATE_FREQUENCY = "network_stats_update_frequency";
     // Status bar battery style
     private static final String STATUS_BAR_BATTERY = "status_bar_battery";
+    private static final String STATUS_BAR_BATTERY_SHOW_PERCENT = "status_bar_battery_show_percent";
+    private static final String STATUS_BAR_STYLE_HIDDEN = "5";
+    private static final String STATUS_BAR_STYLE_TEXT = "4";
+    private SystemSettingCheckBoxPreference mStatusBarBatteryShowPercent;
     // Clock
     private static final String STATUS_BAR_CLOCK_STYLE = "status_bar_clock_style";
     private static final String STATUS_BAR_AM_PM = "status_bar_am_pm";
@@ -99,11 +103,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
 
             // Status bar battery style
             mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY);
-            mStatusBarBattery.setOnPreferenceChangeListener(this);
-            int batteryStyleValue = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.STATUS_BAR_BATTERY, 0);
-            mStatusBarBattery.setValue(String.valueOf(batteryStyleValue));
-            mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
+            mStatusBarBatteryShowPercent =
+                (SystemSettingCheckBoxPreference) findPreference(STATUS_BAR_BATTERY_SHOW_PERCENT);
 
             // Clock
             mStatusBarClockStyle = (ListPreference) findPreference(STATUS_BAR_CLOCK_STYLE);
@@ -145,6 +146,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
                 mQuickPulldown.setValue(String.valueOf(quickPulldownValue));
                 mQuickPulldown.setSummary(mQuickPulldown.getEntry());
             }
+            
+            enableStatusBarBatteryDependents(mStatusBarBattery.getValue());
         }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
@@ -155,6 +158,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_BATTERY, batteryStyleValue);
             mStatusBarBattery.setSummary(mStatusBarBattery.getEntries()[batteryStyleIndex]);
+            enableStatusBarBatteryDependents((String)newValue);
             return true;
 
         } else if (preference == mNetworkStats) {
