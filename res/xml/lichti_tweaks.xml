@@ -11,7 +11,12 @@
                     android:fragment="com.android.settings.rascarlo.HeadsUp"
                     android:key="heads_up"
                     android:title="@string/heads_up_title"
-                    android:summary="@string/heads_up_summary" />      
+                    android:summary="@string/heads_up_summary" />
+
+            <PreferenceScreen
+                    android:fragment="com.android.settings.LockscreenNotifications"
+                    android:title="@string/lockscreen_notifications"
+                    android:summary="@string/lockscreen_notifications_summary" />  
 
     </PreferenceCategory>
 
