@@ -86,6 +86,10 @@
     <string name="safe_headset_volume_title">Safe headset volume</string>
     <string name="safe_headset_volume_summary">Prevent loud volume levels when headset is first plugged in</string>
 
+    <!-- Quick Unlock -->
+    <string name="lockscreen_quick_unlock_control_title">Quick unlock</string>
+    <string name="lockscreen_quick_unlock_control_summary">Unlock automatically when the correct PIN/password is entered</string>
+
     <!--  Plug-in prompt -->
     <string name="plug_in_prompt_settings_title">Plug-in prompt</string>
 

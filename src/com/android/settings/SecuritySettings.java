@@ -71,6 +71,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final int SET_OR_CHANGE_LOCK_METHOD_REQUEST = 123;
     private static final int CONFIRM_EXISTING_FOR_BIOMETRIC_WEAK_IMPROVE_REQUEST = 124;
     private static final int CONFIRM_EXISTING_FOR_BIOMETRIC_WEAK_LIVELINESS_OFF = 125;
+    private static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL = "lockscreen_quick_unlock_control";
 
     // Misc Settings
     private static final String KEY_SIM_LOCK = "sim_lock";
@@ -105,6 +106,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private CheckBoxPreference mToggleVerifyApps;
     private CheckBoxPreference mPowerButtonInstantlyLocks;
     private CheckBoxPreference mEnableKeyguardWidgets;
+    private CheckBoxPreference mQuickUnlockScreen;
 
     private Preference mNotificationAccess;
 
@@ -225,6 +227,14 @@ public class SecuritySettings extends RestrictedSettingsFragment
                 }
                 mEnableKeyguardWidgets.setEnabled(!disabled);
             }
+        }
+
+	//Quick Unlock
+	mQuickUnlockScreen = (CheckBoxPreference) root.findPreference(LOCKSCREEN_QUICK_UNLOCK_CONTROL);
+        if (mQuickUnlockScreen  != null) {
+            mQuickUnlockScreen.setChecked(Settings.System.getInt(getContentResolver(), 
+                    Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL, 0) == 1);
+            mQuickUnlockScreen.setOnPreferenceChangeListener(this);
         }
 
         // biometric weak liveliness
@@ -583,6 +593,9 @@ public class SecuritySettings extends RestrictedSettingsFragment
             lockPatternUtils.setPowerButtonInstantlyLocks(isToggled(preference));
         } else if (KEY_ENABLE_WIDGETS.equals(key)) {
             lockPatternUtils.setWidgetsEnabled(mEnableKeyguardWidgets.isChecked());
+        } else if (preference == mQuickUnlockScreen) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    mQuickUnlockScreen.isChecked() ? 1 : 0);
         } else if (preference == mShowPassword) {
             Settings.System.putInt(getContentResolver(), Settings.System.TEXT_SHOW_PASSWORD,
                     mShowPassword.isChecked() ? 1 : 0);
