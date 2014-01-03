@@ -86,7 +86,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
 
             // Clock
-            mStatusBarClockStyle = (ListPreference) prefSet.findPreference(STATUS_BAR_CLOCK_STYLE);
+            mStatusBarClockStyle = (ListPreference) findPreference(STATUS_BAR_CLOCK_STYLE);
             int statusBarClockStyle = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK_STYLE, 1);
             mStatusBarClockStyle.setValue(String.valueOf(statusBarClockStyle));
@@ -138,8 +138,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             return true;
 
         } else if (preference == mStatusBarClockStyle) {
-            int statusBarClockStyle = Integer.valueOf((String) newValue);
-            int index = mStatusBarClockStyle.findIndexOfValue((String) newValue);
+            int statusBarClockStyle = Integer.valueOf((String) objValue);
+            int index = mStatusBarClockStyle.findIndexOfValue((String) objValue);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_CLOCK_STYLE, statusBarClockStyle);
             mStatusBarClockStyle.setSummary(mStatusBarClockStyle.getEntries()[index]);
@@ -171,12 +171,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             value = mStatusBarBrightnessControl.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, value ? 1 : 0);
-            return true;
-
-        } else if (preference == mCombinedBarAutoHide) {
-            value = mCombinedBarAutoHide.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.COMBINED_BAR_AUTO_HIDE, value ? 1 : 0);
             return true;
 
         } else if (preference == mStatusBarDoubleTapSleepGesture) {
