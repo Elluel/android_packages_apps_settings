@@ -410,4 +410,8 @@
     <!-- time range preference -->
     <string name="start_time_title">Start</string>
     <string name="end_time_title">End</string>
+
+    <!-- Keyguard always show battery -->
+    <string name="lockscreen_battery_status_title">Battery status</string>
+    <string name="lockscreen_battery_status_summary">Always show battery status on keyguard</string>
     </resources>

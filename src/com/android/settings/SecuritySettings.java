@@ -93,6 +93,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String KEY_ENABLE_POWER_MENU = "lockscreen_enable_power_menu";
     private static final String KEY_SEE_THROUGH = "lockscreen_see_through";
     private static final String LOCKSCREEN_MAXIMIZE_WIDGETS = "lockscreen_maximize_widgets";
+    private static final String KEY_ALWAYS_BATTERY_PREF = "lockscreen_battery_status";
 
     private PackageManager mPM;
     private DevicePolicyManager mDPM;
@@ -118,6 +119,8 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private CheckBoxPreference mEnablePowerMenu;
     private CheckBoxPreference mSeeThrough;
     private CheckBoxPreference mMaximizeKeyguardWidgets;
+
+    private CheckBoxPreference mBatteryStatus;
 
     private Preference mNotificationAccess;
 
@@ -315,6 +318,8 @@ public class SecuritySettings extends RestrictedSettingsFragment
                 root.findPreference(KEY_SIM_LOCK).setEnabled(false);
             }
         }
+
+        mBatteryStatus = (CheckBoxPreference) root.findPreference(KEY_ALWAYS_BATTERY_PREF);
 
         // Show password
         mShowPassword = (CheckBoxPreference) root.findPreference(KEY_SHOW_PASSWORD);
@@ -556,6 +561,14 @@ public class SecuritySettings extends RestrictedSettingsFragment
         if (mEnableKeyguardWidgets != null) {
             mEnableKeyguardWidgets.setChecked(lockPatternUtils.getWidgetsEnabled());
         }
+
+        if (mBatteryStatus != null) {
+            mBatteryStatus.setChecked(Settings.System.getIntForUser(getContentResolver(),
+                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, 0,
+                    UserHandle.USER_CURRENT) != 0);
+            mBatteryStatus.setOnPreferenceChangeListener(this);
+        }
+
     }
 
     @Override
@@ -683,6 +696,10 @@ public class SecuritySettings extends RestrictedSettingsFragment
             boolean newValue = (Boolean) value;
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKSCREEN_SEE_THROUGH, newValue ? 1 : 0);
+        } else if (preference == mBatteryStatus) {
+            boolean newValue = (Boolean) value;
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, newValue ? 1 : 0);
         }
         return true;
     }

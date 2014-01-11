@@ -30,6 +30,11 @@
             android:key="keyguard_enable_widgets"
             android:title="@string/security_enable_widgets_title"/>
 
+        <CheckBoxPreference
+            android:key="lockscreen_battery_status"
+            android:title="@string/lockscreen_battery_status_title"
+            android:summary="@string/lockscreen_battery_status_summary" />          
+
         <PreferenceScreen
             android:fragment="com.android.settings.OwnerInfoSettings"
             android:key="owner_info_settings"
