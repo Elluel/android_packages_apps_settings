@@ -86,14 +86,14 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 0) == 1));
 
             // Network traffic indicator
-            mNetworkStats = (CheckBoxPreference) prefSet.findPreference(NETWORK_STATS);
-            mNetworkStats.setChecked(Settings.System.getInt(resolver,
+            mNetworkStats = (CheckBoxPreference) findPreference(NETWORK_STATS);
+            mNetworkStats.setChecked(Settings.System.getInt(getContentResolver(),
                     Settings.System.STATUS_BAR_NETWORK_STATS, 0) == 1);
             mNetworkStats.setOnPreferenceChangeListener(this);
 
             mNetworkStatsUpdateFrequency = (SeekBarPreference)
-                    prefSet.findPreference(NETWORK_STATS_UPDATE_FREQUENCY);
-            mNetworkStatsUpdateFrequency.setValue(Settings.System.getInt(resolver,
+                    findPreference(NETWORK_STATS_UPDATE_FREQUENCY);
+            mNetworkStatsUpdateFrequency.setValue(Settings.System.getInt(getContentResolver(),
                     Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, 500));
             mNetworkStatsUpdateFrequency.setOnPreferenceChangeListener(this);
 
@@ -159,12 +159,12 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
 
         } else if (preference == mNetworkStats) {
             boolean value = (Boolean) objValue;
-            Settings.System.putInt(resolver, Settings.System.STATUS_BAR_NETWORK_STATS,
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_NETWORK_STATS,
                     value ? 1 : 0);
 
         } else if (preference == mNetworkStatsUpdateFrequency) {
             int i = Integer.valueOf((Integer) objValue);
-            Settings.System.putInt(resolver,
+            Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, i);
             return true;
 
