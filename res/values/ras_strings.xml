@@ -290,4 +290,10 @@
     <string name="privacy_guard_manager_show_system_apps">Show built-in apps</string>
     <string name="privacy_guard_manager_filter_permissions">Permission filter</string> 
     <string name="privacy_guard_advanced_settings_title">Advanced</string> 
+
+    <!-- Network speed -->
+    <string name="status_bar_show_network_stats_title">Network traffic indicator</string>
+    <string name="status_bar_show_network_stats_summary">Show network speeds in statusbar</string>
+    <string name="status_bar_network_stats_update_title">Update frequency</string>
+    <string name="status_bar_network_stats_update_summary">How often is indicator updated</string>
     </resources>
