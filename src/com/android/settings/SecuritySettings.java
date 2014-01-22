@@ -271,13 +271,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
                 Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1);
         mSeeThrough.setOnPreferenceChangeListener(this);
 
-        // Lockscreen maximized widgets
-        mMaximizeKeyguardWidgets = (CheckBoxPreference) root.findPreference(LOCKSCREEN_MAXIMIZE_WIDGETS);
-        if (mMaximizeKeyguardWidgets != null) {
-            mMaximizeKeyguardWidgets.setChecked(Settings.System.getInt(getContentResolver(),
-                    Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0) == 1);
-        }
-
         // biometric weak liveliness
         mBiometricWeakLiveliness =
                 (CheckBoxPreference) root.findPreference(KEY_BIOMETRIC_WEAK_LIVELINESS);
@@ -319,15 +312,19 @@ public class SecuritySettings extends RestrictedSettingsFragment
 
         // Enable or disable keyguard widget checkbox based on DPM state
         mEnableKeyguardWidgets = (CheckBoxPreference) root.findPreference(KEY_ENABLE_WIDGETS);
-        if (mEnableKeyguardWidgets != null) {
+        mMaximizeKeyguardWidgets = (CheckBoxPreference) root.findPreference(LOCKSCREEN_MAXIMIZE_WIDGETS);
+
+        if (mEnableKeyguardWidgets != null && mMaximizeKeyguardWidgets != null) {
             if (ActivityManager.isLowRamDeviceStatic()
                     || mLockPatternUtils.isLockScreenDisabled()) {
                 // Widgets take a lot of RAM, so disable them on low-memory devices
                 PreferenceGroup securityCategory
                         = (PreferenceGroup) root.findPreference(KEY_SECURITY_CATEGORY);
                 if (securityCategory != null) {
-                    securityCategory.removePreference(root.findPreference(KEY_ENABLE_WIDGETS));
+                    securityCategory.removePreference(mEnableKeyguardWidgets);
+                    securityCategory.removePreference(mMaximizeKeyguardWidgets);
                     mEnableKeyguardWidgets = null;
+                    mMaximizeKeyguardWidgets = null;
                 }
             } else {
                 final boolean disabled = (0 != (mDPM.getKeyguardDisabledFeatures(null)
@@ -339,6 +336,8 @@ public class SecuritySettings extends RestrictedSettingsFragment
                     mEnableKeyguardWidgets.setSummary("");
                 }
                 mEnableKeyguardWidgets.setEnabled(!disabled);
+                mMaximizeKeyguardWidgets.setChecked(Settings.System.getInt(getContentResolver(),
+                        Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0) == 1);
             }
         }
 
