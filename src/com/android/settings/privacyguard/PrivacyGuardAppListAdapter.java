@@ -16,7 +16,6 @@
 
 package com.android.settings.privacyguard;
 
-import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -109,8 +108,9 @@ public class PrivacyGuardAppListAdapter extends BaseAdapter implements SectionIn
         Drawable icon = mIcons.get(app.packageName);
         appHolder.icon.setImageDrawable(icon != null ? icon : mDefaultImg);
 
-        appHolder.privacyGuardIcon.setImageResource(
-            AppOpsManager.getPrivacyGuardIconResId(app.privacyGuardState));
+        int privacyGuardDrawableResId = app.privacyGuardEnabled
+                ? R.drawable.ic_privacy_guard : R.drawable.ic_privacy_guard_off;
+        appHolder.privacyGuardIcon.setImageResource(privacyGuardDrawableResId);
 
         return convertView;
     }
