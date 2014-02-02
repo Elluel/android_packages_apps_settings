@@ -28,17 +28,6 @@
         </Preference>
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="privacy_guard_manager_header"
-        android:title="@string/privacy_guard_manager_title">
-
-        <Preference
-            android:fragment="com.android.settings.privacyguard.PrivacyGuardManager"
-            android:key="privacy_guard_manager"
-            android:summary="@string/privacy_guard_manager_summary"
-            android:title="@string/privacy_guard_manager_title" />
-    </PreferenceCategory>
-
     <PreferenceCategory android:title="@string/security_passwords_title"
             android:persistent="false">
 
