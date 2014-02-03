@@ -52,5 +52,11 @@
         android:fragment="com.android.settings.rascarlo.NotificationLightSettings"
         android:key="notification_pulse"
         android:title="@string/led_settings_category_title" />
+	
+	<!-- OmniSwitch -->
+	<PreferenceScreen
+       android:id="@+id/omniswitch"
+       android:title="@string/omniswitch_category" 
+       android:fragment="com.android.settings.rascarlo.OmniSwitch" />
 
 </PreferenceScreen>
