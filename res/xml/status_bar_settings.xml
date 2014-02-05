@@ -18,22 +18,11 @@
             android:key="double_tap_sleep_gesture"
             android:title="@string/status_bar_double_tap_to_sleep_title" />
 
-        <CheckBoxPreference
-                android:key="network_stats"
-                android:title="@string/status_bar_show_network_stats_title"
-                android:summary="@string/status_bar_show_network_stats_summary"
-                android:persistent="false" />
-
-        <com.android.settings.rascarlo.SeekBarPreference
-                android:key="network_stats_update_frequency"
-                android:title="@string/status_bar_network_stats_update_title"
-                android:summary="@string/status_bar_network_stats_update_summary"
-                android:max="2500"
-                settings:interval="50"
-                settings:min="250"
-                settings:unitsLeft=""
-                settings:unitsRight="ms"
-                android:persistent="false" />
+        <PreferenceScreen
+            android:key="network_usage_stats"
+            android:fragment="com.android.settings.rascarlo.NetworkUsageStats"
+            android:title="@string/network_traffic_title"
+            android:summary="@string/network_traffic_summary" />
 
         <ListPreference
             android:dialogTitle="@string/status_bar_battery_title"
