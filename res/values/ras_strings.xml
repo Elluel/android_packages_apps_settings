@@ -275,6 +275,7 @@
     <string name="status_bar_show_network_stats_summary">Show network speeds in statusbar</string>
     <string name="status_bar_network_stats_update_title">Update frequency</string>
     <string name="status_bar_network_stats_update_summary">How often is indicator updated</string>
+    <string name="ok">OK</string>
 
     <!-- Network stats hide if there's no traffic -->
     <string name="hide_network_speed">Hide when there is no traffic</string>
