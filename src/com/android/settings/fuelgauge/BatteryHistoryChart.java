@@ -178,15 +178,15 @@ public class BatteryHistoryChart extends View {
     public BatteryHistoryChart(Context context, AttributeSet attrs) {
         super(context, attrs);
         
-        mBatteryBackgroundPaint.setARGB(255, 128, 128, 128);
+        mBatteryBackgroundPaint.setARGB(128, 255, 255, 255);
         mBatteryBackgroundPaint.setStyle(Paint.Style.FILL);
-        mBatteryGoodPaint.setARGB(128, 0, 255, 0);
+        mBatteryGoodPaint.setARGB(255, 255, 255, 255);
         mBatteryGoodPaint.setStyle(Paint.Style.STROKE);
-        mBatteryWarnPaint.setARGB(128, 255, 255, 0);
+        mBatteryWarnPaint.setARGB(255, 255, 255, 255);
         mBatteryWarnPaint.setStyle(Paint.Style.STROKE);
         mBatteryCriticalPaint.setARGB(192, 255, 0, 0);
         mBatteryCriticalPaint.setStyle(Paint.Style.STROKE);
-        mChargingPaint.setARGB(255, 0, 128, 0);
+        mChargingPaint.setARGB(255, 255, 255, 255);
         mChargingPaint.setStyle(Paint.Style.STROKE);
         mScreenOnPaint.setStyle(Paint.Style.STROKE);
         mGpsOnPaint.setStyle(Paint.Style.STROKE);
