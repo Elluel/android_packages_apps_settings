@@ -1,6 +1,9 @@
 
 package com.android.settings.rascarlo;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -10,10 +13,17 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
+
+import com.android.settings.rascarlo.SeekBarPreference;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class StatusBarSettings extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
@@ -31,6 +41,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
     // Quick Settings
     private static final String QUICK_SETTINGS_CATEGORY = "status_bar_quick_settings_category";
     private static final String QUICK_PULLDOWN = "quick_pulldown";
+    // Network Stats
+    private static final String STATUS_BAR_NETWORK_STATS = "status_bar_show_network_stats";
+    private static final String NETWORK_STATS_UPDATE_FREQUENCY = "network_stats_update_frequency";
+    private static final String STATUS_BAR_NETWORK_COLOR = "status_bar_network_color";
+    private static final String STATUS_BAR_NETWORK_HIDE = "status_bar_network_hide";
 
     // General
     private PreferenceCategory mStatusBarGeneralCategory;
@@ -45,6 +60,15 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
     private ListPreference mStatusBarClockStyle;
     // Quick Settings
     private ListPreference mQuickPulldown;
+    // Network Stats
+    private SeekBarPreference mNetworkStatsUpdateFrequency;
+    private CheckBoxPreference mStatusBarNetworkStats;
+    private ColorPickerPreference mStatusBarNetworkColor;
+    private CheckBoxPreference mStatusBarNetworkHide;
+
+    private static final int MENU_RESET = Menu.FIRST;
+
+    static final int DEFAULT_NETWORK_USAGE_COLOR = 0xffffffff;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,7 +149,73 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
                 mQuickPulldown.setValue(String.valueOf(quickPulldownValue));
                 mQuickPulldown.setSummary(mQuickPulldown.getEntry());
             }
+            // Network Stats
+            mStatusBarNetworkStats = (CheckBoxPreference) getPreferenceScreen().findPreference(STATUS_BAR_NETWORK_STATS);
+            mStatusBarNetworkStats.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                     Settings.System.STATUS_BAR_NETWORK_STATS, 0) == 1));
+
+            mNetworkStatsUpdateFrequency = (SeekBarPreference)
+                    getPreferenceScreen().findPreference(NETWORK_STATS_UPDATE_FREQUENCY);
+            mNetworkStatsUpdateFrequency.setValue((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, 500)));
+            mNetworkStatsUpdateFrequency.setOnPreferenceChangeListener(this);
+
+            // custom colors
+            mStatusBarNetworkColor = (ColorPickerPreference) getPreferenceScreen().findPreference(STATUS_BAR_NETWORK_COLOR);
+            mStatusBarNetworkColor.setOnPreferenceChangeListener(this);
+            int intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                       Settings.System.STATUS_BAR_NETWORK_COLOR, 0xff000000);
+            String hexColor = String.format("#%08x", (0xffffffff & intColor));
+            mStatusBarNetworkColor.setSummary(hexColor);
+            mStatusBarNetworkColor.setNewPreviewColor(intColor);
+
+            // hide if there's no traffic
+            mStatusBarNetworkHide = (CheckBoxPreference) getPreferenceScreen().findPreference(STATUS_BAR_NETWORK_HIDE);
+            mStatusBarNetworkHide.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_HIDE, 0) == 1));
+
+            setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.add(0, MENU_RESET, 0, R.string.status_bar_network_usage_color_reset)
+                .setIcon(R.drawable.ic_settings_backup) // use the backup icon
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_RESET:
+                resetToDefault();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
+    }
+
+    private void resetToDefault() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle(R.string.status_bar_network_usage_color_reset);
+        alertDialog.setMessage(R.string.status_bar_network_usage_color_reset_message);
+        alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                NetworkStatsColorReset();
+            }
+        });
+        alertDialog.setNegativeButton(R.string.cancel, null);
+        alertDialog.create().show();
+    }
+
+    private void NetworkStatsColorReset() {
+        Settings.System.putInt(getActivity().getContentResolver(),
+                Settings.System.STATUS_BAR_NETWORK_COLOR, DEFAULT_NETWORK_USAGE_COLOR);
+        
+        mStatusBarNetworkColor.setNewPreviewColor(DEFAULT_NETWORK_USAGE_COLOR);
+        String hexColor = String.format("#%08x", (0xffffffff & DEFAULT_NETWORK_USAGE_COLOR));
+        mStatusBarNetworkColor.setSummary(hexColor);
+    }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
 
@@ -161,6 +251,20 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             mQuickPulldown.setSummary(mQuickPulldown.getEntries()[quickPulldownIndex]);
             return true;
 
+        } else if (preference == mNetworkStatsUpdateFrequency) {
+            int i = Integer.valueOf((Integer) objValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, i);
+            return true;
+
+        } else if (preference == mStatusBarNetworkColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(objValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_COLOR, intHex);
+            return true;
         }
         return false;
     }
@@ -179,6 +283,16 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE, value ? 1: 0);
             return true;
 
+        } else if (preference == mStatusBarNetworkStats) {
+            value = mStatusBarNetworkStats.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS, value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarNetworkHide) {
+            value = mStatusBarNetworkHide.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_HIDE, value ? 1 : 0);
+            return true;
         }
         return false;
     }
