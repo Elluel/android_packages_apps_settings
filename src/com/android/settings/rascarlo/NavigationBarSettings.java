@@ -40,7 +40,7 @@ OnPreferenceChangeListener {
         mNavbarButtonTint = (ColorPickerPreference) findPreference(NAVBAR_BUTTON_TINT);
         mNavbarButtonTint.setOnPreferenceChangeListener(this);
         int intColor = Settings.System.getInt(getActivity().getContentResolver(),
-                   Settings.System.NAVBAR_BUTTON_TINT, 0xffffffff);
+                   Settings.System.NAVIGATION_BAR_TINT, 0xffffffff);
         String hexColor = String.format("#%08x", (0xffffffff & intColor));
         mNavbarButtonTint.setSummary(hexColor);
         mNavbarButtonTint.setNewPreviewColor(intColor);
@@ -61,7 +61,7 @@ OnPreferenceChangeListener {
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getContentResolver(),
-            Settings.System.NAVBAR_BUTTON_TINT, intHex);
+            Settings.System.NAVIGATION_BAR_TINT, intHex);
             return true;
         }
         return false;
