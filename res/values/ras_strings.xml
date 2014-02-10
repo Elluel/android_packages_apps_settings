@@ -164,6 +164,8 @@
     <string name="navigation_bar_height_24">24dp</string>
     <string name="navigation_bar_height_20">20dp</string>
     <string name="navigation_bar_height_0">0dp (hide)</string>
+    <!-- Navigation Bar Buttons Color -->
+    <string name="navbar_button_tint_title">Navigation button tint</string>
 
     <!-- Screen recorder -->
     <string name="screen_recorder_title">Screen recorder</string>
