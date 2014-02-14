@@ -154,12 +154,13 @@
         android:title="@string/security_settings_title"
         android:id="@+id/security_settings" />
 
-    <!-- Privacy Guard -->
+    <!-- Apps Permissions -->
     <header
-        android:fragment="com.android.settings.slim.privacyguard.PrivacyGuardManager"
-        android:icon="@drawable/ic_settings_privacy"
-        android:title="@string/privacy_guard_manager_title"
-        android:id="@+id/privacy_guard_manager" />
+        android:id="@+id/appops_settings"
+        android:icon="@drawable/ic_settings_applications"
+        android:fragment="com.android.settings.applications.AppOpsSummary"
+        android:title="@string/appops_settings" />
+
 
     <!-- Language -->
     <header
