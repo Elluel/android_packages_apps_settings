@@ -816,30 +816,6 @@
                 android:resource="@id/application_settings" />
         </activity>
 
-        <!-- Still need a top-level activity for showing app ops details.  Aliasing
-             trick is so the code that is now a fragment can still be called
-             AppOpsDetails. -->
-        <activity android:name=".applications.AppOpsDetailsTop"
-                  android:label="@string/app_ops_settings"
-                  android:exported="true"
-                  android:taskAffinity=""
-                  android:excludeFromRecents="true"
-                  android:parentActivityName="Settings$AppOpsSummaryActivity">
-        </activity>
-
-        <!-- Keep compatibility with old shortcuts. -->
-        <activity-alias android:name=".applications.AppOpsDetails"
-                android:label="@string/app_ops_settings"
-                android:exported="true"
-                android:excludeFromRecents="true"
-                android:targetActivity=".applications.AppOpsDetailsTop">
-            <intent-filter>
-                <action android:name="android.settings.APP_OPS_DETAILS_SETTINGS" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="package" />
-            </intent-filter>
-        </activity-alias>
-
         <activity android:name="Settings$LocationSettingsActivity"
                 android:uiOptions="splitActionBarWhenNarrow"
                 android:label="@string/location_settings_title"
@@ -1596,15 +1572,13 @@
             android:theme="@style/CryptKeeperBlankTheme"
         />
 
-        <activity android:name=".slim.privacyguard.PrivacyGuardManager" />
-
         <!-- Pseudo-activity used to provide an intent-filter entry point to encryption settings -->
         <activity android:name="Settings$CryptKeeperSettingsActivity"
                 android:label="@string/crypt_keeper_encrypt_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.app.action.START_ENCRYPTION" />
-                <category android:name="android.intent.category.DEFAULT" /> 
+                <category android:name="android.intent.category.DEFAULT" /> />
             </intent-filter>
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.CryptKeeperSettings" />
