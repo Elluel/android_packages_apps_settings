@@ -67,13 +67,6 @@
         android:icon="@drawable/ic_settings_system"
         android:fragment="com.android.settings.rascarlo.SystemSettings"
         android:title="@string/system_settings_title" />
-
-    <!-- Apps Permissions -->
-    <header
-        android:id="@+id/appops_settings"
-        android:icon="@drawable/ic_settings_applications"
-        android:fragment="com.android.settings.applications.AppOpsSummary"
-        android:title="@string/appops_settings" />
     <!-- BUILD TWEAKS END -->
 
     <!-- DEVICE -->
@@ -160,6 +153,14 @@
         android:icon="@drawable/ic_settings_security"
         android:title="@string/security_settings_title"
         android:id="@+id/security_settings" />
+
+    <!-- Apps Permissions -->
+    <header
+        android:id="@+id/appops_settings"
+        android:icon="@drawable/ic_settings_applications"
+        android:fragment="com.android.settings.applications.AppOpsSummary"
+        android:title="@string/appops_settings" />
+
 
     <!-- Language -->
     <header
