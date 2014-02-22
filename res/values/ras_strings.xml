@@ -314,6 +314,15 @@
     <string name="privacy_guard_app_ops_detail_reset_dialog_text">Reset all permissions back to default?</string>
     <string name="app_ops_btn_text">Modify</string>
     <string name="app_ops_no_item_text">This app has no changeable permissions.</string>
+    <!-- Wakelock blocker -->
+    <string name="wakelock_blocker">Wakelock Blocker</string>
+    <string name="wakelock_blocker_title">Enable</string>
+    <string name="wakelock_blocker_summary">Activate blocking for checked wakelocks</string>
+    <string name="wakelock_blocker_save">Save</string>
+    <string name="wakelock_list_header">Available Wakelocks</string>
+    <string name="wakelock_blocker_reload">Reload</string>
+    <string name="wakelock_blocker_warning_title">Proceed with Caution</string>
+    <string name="wakelock_blocker_warning">Blocking wakelocks have the potential to cause instability, crashes or data loss.</string>
 
     <!-- Enable camera -->
     <string name="lockscreen_enable_camera_title">Camera widget</string>

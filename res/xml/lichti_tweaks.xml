@@ -54,6 +54,11 @@
             android:icon="@drawable/ic_settings_privacy"
             android:title="@string/privacy_guard_manager_title"
             android:id="@+id/privacy_guard_manager" />
+
+        <PreferenceScreen
+            android:key="wakelock_blocker"
+            android:fragment="com.android.settings.rascarlo.WakeLockBlocker"
+            android:title="@string/wakelock_blocker" />
     </PreferenceCategory>
 
 </PreferenceScreen>
