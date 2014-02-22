@@ -269,6 +269,13 @@ public class SecuritySettings extends RestrictedSettingsFragment
                 Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1);
         mSeeThrough.setOnPreferenceChangeListener(this);
 
+        // Lockscreen maximized widgets
+        mMaximizeKeyguardWidgets = (CheckBoxPreference) root.findPreference(LOCKSCREEN_MAXIMIZE_WIDGETS);
+        if (mMaximizeKeyguardWidgets != null) {
+            mMaximizeKeyguardWidgets.setChecked(Settings.System.getInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0) == 1);
+        }
+
         // biometric weak liveliness
         mBiometricWeakLiveliness =
                 (CheckBoxPreference) root.findPreference(KEY_BIOMETRIC_WEAK_LIVELINESS);
