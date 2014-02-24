@@ -79,8 +79,6 @@
     <string name="status_bar_toggle_brightness">Brightness control</string>
     <string name="status_bar_toggle_brightness_summary">Adjust brightness by sliding across status bar</string>
     <string name="status_bar_toggle_info">Automatic brightness must be disabled</string>
-    <!-- Status bar double-tap to sleep -->
-    <string name="status_bar_double_tap_to_sleep_title">Double-tap to sleep</string>
 
     <!-- Safe headset volume restore checkbox -->
     <string name="safe_headset_volume_title">Safe headset volume</string>
@@ -338,4 +336,16 @@
     <!-- Lockscreen see through -->
     <string name="lockscreen_see_through_title">See through</string>
     <string name="lockscreen_see_through_summary">Shows the content behind your lockscreen, your data may be visible to those around you</string>
-</resources>
+
+    <!-- Double-tap to sleep -->
+    <string name="double_tap_sleep_title">Double-tap to sleep</string>
+    <string name="double_tap_sleep_secure_lockscreen_category">Secure lockscreen</string>
+    <string name="status_bar_double_tap_sleep_status_bar_title">Status bar</string>
+    <string name="status_bar_double_tap_sleep_status_bar_summary">Double tap anywhere on the status bar</string>
+    <string name="status_bar_double_tap_sleep_glowpad_title">Glow pad</string>
+    <string name="status_bar_double_tap_sleep_glowpad_summary">Double tap the glow pad</string>
+    <string name="status_bar_double_tap_sleep_pin_password_title">Pin and Password</string>
+    <string name="status_bar_double_tap_sleep_pin_password_summary">Double tap the text entry view</string>
+    <string name="status_bar_double_tap_sleep_pattern_title">Pattern</string>
+    <string name="status_bar_double_tap_sleep_pattern_summary">Double tap anywhere on the pattern view</string>
+    </resources>
