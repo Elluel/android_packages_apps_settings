@@ -284,8 +284,15 @@
     <string name="show_network_traffic_1500">1500 ms</string>
     <string name="show_network_traffic_2000">2000 ms</string>
 
-    <string name="show_activity_indicators_on_status_bar_title">Activity indicators</string>
-    <string name="show_activity_indicators_on_status_bar_summary">Show indicators in signal bars</string>
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Color Picker</string>
+    <string name="press_color_to_apply">Press on color below to apply</string>
+    <string name="arrow_right">→</string>
+    <string name="arrow_down">↓</string>
+    <string name="hex">Hex:</string>
+    <string name="hex_hint">#ff000000</string>
+    <string name="set">Set</string>
+    <string name="color_default">Default</string>
 
     <!-- AppOps additions -->
     <string name="appops_settings">Apps permissions</string>
