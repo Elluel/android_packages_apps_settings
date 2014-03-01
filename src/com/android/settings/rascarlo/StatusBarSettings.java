@@ -15,12 +15,16 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
+import com.android.settings.rascarlo.SeekBarPreference;
+
 public class StatusBarSettings extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
     // General
     private static String STATUS_BAR_GENERAL_CATEGORY = "status_bar_general_category";
     // Brightness control
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
+    // Double-tap to sleep
+    private static final String DOUBLE_TAP_SLEEP_GESTURE = "double_tap_sleep_gesture";
     // Status bar battery style
     private static final String STATUS_BAR_BATTERY = "status_bar_battery";
     // Clock
@@ -36,6 +40,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
     private ListPreference mStatusBarBattery;
     // Brightness control
     private CheckBoxPreference mStatusBarBrightnessControl;
+    // Double-tap to sleep
+    private CheckBoxPreference mStatusBarDoubleTapSleepGesture;
     // Clock
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarClockStyle;
@@ -67,6 +73,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
                 } catch (SettingNotFoundException e) {
                 }
             }
+
+            // Status bar double-tap to sleep
+            mStatusBarDoubleTapSleepGesture = (CheckBoxPreference) getPreferenceScreen().findPreference(DOUBLE_TAP_SLEEP_GESTURE);
+            mStatusBarDoubleTapSleepGesture.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 0) == 1));
 
             // Status bar battery style
             mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY);
@@ -126,6 +137,17 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_BATTERY, batteryStyleValue);
             mStatusBarBattery.setSummary(mStatusBarBattery.getEntries()[batteryStyleIndex]);
+            return true;
+
+        } else if (preference == mNetworkStats) {
+            boolean value = (Boolean) objValue;
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_NETWORK_STATS,
+                    value ? 1 : 0);
+
+        } else if (preference == mNetworkStatsUpdateFrequency) {
+            int i = Integer.valueOf((Integer) objValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, i);
             return true;
 
         } else if (preference == mStatusBarClockStyle) {
