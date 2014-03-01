@@ -1,12 +1,18 @@
 
 package com.android.settings.rascarlo;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.res.Resources;
+import android.net.TrafficStats;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
@@ -21,8 +27,10 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
     private static String STATUS_BAR_GENERAL_CATEGORY = "status_bar_general_category";
     // Brightness control
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
-    // Double-tap to sleep
-    private static final String DOUBLE_TAP_SLEEP_GESTURE = "double_tap_sleep_gesture";
+    // Network Traffic
+    private static final String NETWORK_TRAFFIC_STATE = "network_traffic_state";
+    private static final String NETWORK_TRAFFIC_UNIT = "network_traffic_unit";
+    private static final String NETWORK_TRAFFIC_PERIOD = "network_traffic_period";
     // Status bar battery style
     private static final String STATUS_BAR_BATTERY = "status_bar_battery";
     // Clock
@@ -38,19 +46,30 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
     private ListPreference mStatusBarBattery;
     // Brightness control
     private CheckBoxPreference mStatusBarBrightnessControl;
-    // Double-tap to sleep
-    private CheckBoxPreference mStatusBarDoubleTapSleepGesture;
     // Clock
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarClockStyle;
     // Quick Settings
     private ListPreference mQuickPulldown;
+    // Network Traffic
+    private ListPreference mNetTrafficState;
+    private ListPreference mNetTrafficUnit;
+    private ListPreference mNetTrafficPeriod;
+
+    private int mNetTrafficVal;
+    private int MASK_UP;
+    private int MASK_DOWN;
+    private int MASK_UNIT;
+    private int MASK_PERIOD;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.status_bar_settings);
+
+        loadResources();
+
 
             // General category
             mStatusBarGeneralCategory = (PreferenceCategory) findPreference(STATUS_BAR_GENERAL_CATEGORY);
@@ -72,11 +91,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
                 }
             }
 
-            // Status bar double-tap to sleep
-            mStatusBarDoubleTapSleepGesture = (CheckBoxPreference) getPreferenceScreen().findPreference(DOUBLE_TAP_SLEEP_GESTURE);
-            mStatusBarDoubleTapSleepGesture.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 0) == 1));
-
             // Status bar battery style
             mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY);
             mStatusBarBattery.setOnPreferenceChangeListener(this);
@@ -84,6 +98,40 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
                     Settings.System.STATUS_BAR_BATTERY, 0);
             mStatusBarBattery.setValue(String.valueOf(batteryStyleValue));
             mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
+
+            // Network Traffic
+            mNetTrafficState = (ListPreference) getPreferenceScreen().findPreference(NETWORK_TRAFFIC_STATE);
+            mNetTrafficUnit = (ListPreference) getPreferenceScreen().findPreference(NETWORK_TRAFFIC_UNIT);
+            mNetTrafficPeriod = (ListPreference) getPreferenceScreen().findPreference(NETWORK_TRAFFIC_PERIOD);
+
+            // TrafficStats will return UNSUPPORTED if the device does not support it.
+            if (TrafficStats.getTotalTxBytes() != TrafficStats.UNSUPPORTED &&
+                    TrafficStats.getTotalRxBytes() != TrafficStats.UNSUPPORTED) {
+                mNetTrafficVal = Settings.System.getInt(getActivity().getContentResolver(), Settings.System.NETWORK_TRAFFIC_STATE, 0);
+                int intIndex = mNetTrafficVal & (MASK_UP + MASK_DOWN);
+                intIndex = mNetTrafficState.findIndexOfValue(String.valueOf(intIndex));
+                if (intIndex <= 0) {
+                    mNetTrafficUnit.setEnabled(false);
+                    mNetTrafficPeriod.setEnabled(false);
+                }
+                mNetTrafficState.setValueIndex(intIndex >= 0 ? intIndex : 0);
+                mNetTrafficState.setSummary(mNetTrafficState.getEntry());
+                mNetTrafficState.setOnPreferenceChangeListener(this);
+
+                mNetTrafficUnit.setValueIndex(getBit(mNetTrafficVal, MASK_UNIT) ? 1 : 0);
+                mNetTrafficUnit.setSummary(mNetTrafficUnit.getEntry());
+                mNetTrafficUnit.setOnPreferenceChangeListener(this);
+
+                intIndex = (mNetTrafficVal & MASK_PERIOD) >>> 16;
+                intIndex = mNetTrafficPeriod.findIndexOfValue(String.valueOf(intIndex));
+                mNetTrafficPeriod.setValueIndex(intIndex >= 0 ? intIndex : 1);
+                mNetTrafficPeriod.setSummary(mNetTrafficPeriod.getEntry());
+                mNetTrafficPeriod.setOnPreferenceChangeListener(this);
+            } else {
+                getPreferenceScreen().removePreference(findPreference(NETWORK_TRAFFIC_STATE));
+                getPreferenceScreen().removePreference(findPreference(NETWORK_TRAFFIC_UNIT));
+                getPreferenceScreen().removePreference(findPreference(NETWORK_TRAFFIC_PERIOD));
+            }
 
             // Clock
             mStatusBarClockStyle = (ListPreference) findPreference(STATUS_BAR_CLOCK_STYLE);
@@ -153,6 +201,33 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             mStatusBarAmPm.setSummary(mStatusBarAmPm.getEntries()[indexAmPm]);
             return true;
 
+        } else if (preference == mNetTrafficState) {
+            int intState = Integer.valueOf((String)objValue);
+            mNetTrafficVal = setBit(mNetTrafficVal, MASK_UP, getBit(intState, MASK_UP));
+            mNetTrafficVal = setBit(mNetTrafficVal, MASK_DOWN, getBit(intState, MASK_DOWN));
+            Settings.System.putInt(getActivity().getContentResolver(), Settings.System.NETWORK_TRAFFIC_STATE, mNetTrafficVal);
+            int index = mNetTrafficState.findIndexOfValue((String) objValue);
+            mNetTrafficState.setSummary(mNetTrafficState.getEntries()[index]);
+            if (intState == 0) {
+                mNetTrafficUnit.setEnabled(false);
+                mNetTrafficPeriod.setEnabled(false);
+            } else {
+                mNetTrafficUnit.setEnabled(true);
+                mNetTrafficPeriod.setEnabled(true);
+            }
+        } else if (preference == mNetTrafficUnit) {
+            // 1 = Display as Byte/s; default is bit/s
+            mNetTrafficVal = setBit(mNetTrafficVal, MASK_UNIT, ((String)objValue).equals("1"));
+            Settings.System.putInt(getActivity().getContentResolver(), Settings.System.NETWORK_TRAFFIC_STATE, mNetTrafficVal);
+            int index = mNetTrafficUnit.findIndexOfValue((String) objValue);
+            mNetTrafficUnit.setSummary(mNetTrafficUnit.getEntries()[index]);
+        } else if (preference == mNetTrafficPeriod) {
+            int intState = Integer.valueOf((String)objValue);
+            mNetTrafficVal = setBit(mNetTrafficVal, MASK_PERIOD, false) + (intState << 16);
+            Settings.System.putInt(getActivity().getContentResolver(), Settings.System.NETWORK_TRAFFIC_STATE, mNetTrafficVal);
+            int index = mNetTrafficPeriod.findIndexOfValue((String) objValue);
+            mNetTrafficPeriod.setSummary(mNetTrafficPeriod.getEntries()[index]);
+
         } else if (preference == mQuickPulldown) {
             int quickPulldownValue = Integer.valueOf((String) objValue);
             int quickPulldownIndex = mQuickPulldown.findIndexOfValue((String) objValue);
@@ -165,6 +240,26 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
         return false;
     }
 
+    private void loadResources() {
+        Resources resources = getActivity().getResources();
+        MASK_UP = resources.getInteger(R.integer.maskUp);
+        MASK_DOWN = resources.getInteger(R.integer.maskDown);
+        MASK_UNIT = resources.getInteger(R.integer.maskUnit);
+        MASK_PERIOD = resources.getInteger(R.integer.maskPeriod);
+    }
+
+    // intMask should only have the desired bit(s) set
+    private int setBit(int intNumber, int intMask, boolean blnState) {
+        if (blnState) {
+            return (intNumber | intMask);
+        }
+        return (intNumber & ~intMask);
+    }
+
+    private boolean getBit(int intNumber, int intMask) {
+        return (intNumber & intMask) == intMask;
+    }
+
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         boolean value;
         if (preference == mStatusBarBrightnessControl) {
@@ -172,13 +267,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, value ? 1 : 0);
             return true;
-
-        } else if (preference == mStatusBarDoubleTapSleepGesture) {
-            value = mStatusBarDoubleTapSleepGesture.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE, value ? 1: 0);
-            return true;
-
         }
         return false;
     }
