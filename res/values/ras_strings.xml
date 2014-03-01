@@ -268,12 +268,6 @@
     <string name="usb_mass_storage_title">Mass storage (UMS)</string>
     <string name="usb_mass_storage_summary">Lets you transfer any files between your computer and your SD card by mounting it as a flash device</string>
 
-    <!-- Network speed -->
-    <string name="status_bar_show_network_stats_title">Network traffic indicator</string>
-    <string name="status_bar_show_network_stats_summary">Show network speeds in statusbar</string>
-    <string name="status_bar_network_stats_update_title">Update frequency</string>
-    <string name="status_bar_network_stats_update_summary">How often is indicator updated</string>
-
     <!-- AppOps additions -->
     <string name="appops_settings">Apps permissions</string>
     <string name="appops_sysapp_beware">Beware!</string>
@@ -281,6 +275,7 @@
 
     <!-- Privacy Guard -->
     <string name="app_security_title">App security</string>
+    <string name="privacy_guard_advanced_settings_title">Advanced</string>
     <string name="privacy_guard_dlg_title">Enable Privacy Guard?</string>
     <string name="privacy_guard_dlg_text">When Privacy Guard is enabled, the app will not be able to access personal data such as contacts, messages, location or call logs.</string>
     <string name="privacy_guard_dlg_system_app_text">When enabling Privacy Guard for a built-in app, the app will not be able to access personal data such as contacts, messages, location or call logs. This may cause other apps to misbehave.</string>

@@ -15,8 +15,6 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
-import com.android.settings.rascarlo.SeekBarPreference;
-
 public class StatusBarSettings extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
     // General
@@ -137,17 +135,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_BATTERY, batteryStyleValue);
             mStatusBarBattery.setSummary(mStatusBarBattery.getEntries()[batteryStyleIndex]);
-            return true;
-
-        } else if (preference == mNetworkStats) {
-            boolean value = (Boolean) objValue;
-            Settings.System.putInt(resolver, Settings.System.STATUS_BAR_NETWORK_STATS,
-                    value ? 1 : 0);
-
-        } else if (preference == mNetworkStatsUpdateFrequency) {
-            int i = Integer.valueOf((Integer) objValue);
-            Settings.System.putInt(resolver,
-                    Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, i);
             return true;
 
         } else if (preference == mStatusBarClockStyle) {
