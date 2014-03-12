@@ -222,12 +222,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, value ? 1 : 0);
             return true;
 
-        } else if (preference == mStatusBarDoubleTapSleepGesture) {
-            value = mStatusBarDoubleTapSleepGesture.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE, value ? 1: 0);
-            return true;
-
         }
         return false;
     }
