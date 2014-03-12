@@ -201,19 +201,6 @@
         <item>ic_lockscreen_twitter_normal</item>
     </string-array>
 
-    <!-- Center Clock -->
-    <string-array name="entries_status_bar_clock_style" translatable="false">
-        <item>Hide</item>
-        <item>Right (default)</item>
-        <item>Center</item>
-    </string-array>
-
-    <string-array name="values_status_bar_clock_style" translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-
     <!-- Network Traffic Display States -->
     <string-array name="show_network_traffic_state_entries" translatable="false">
         <item>@string/show_network_traffic_disable</item>

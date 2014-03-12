@@ -34,7 +34,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
     // Status bar battery style
     private static final String STATUS_BAR_BATTERY = "status_bar_battery";
     // Clock
-    private static final String STATUS_BAR_CLOCK_STYLE = "status_bar_clock_style";
+    private static final String STATUS_BAR_CLOCK = "status_bar_show_clock";
     private static final String STATUS_BAR_AM_PM = "status_bar_am_pm";
     // Quick Settings
     private static final String QUICK_SETTINGS_CATEGORY = "status_bar_quick_settings_category";
@@ -48,7 +48,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
     private CheckBoxPreference mStatusBarBrightnessControl;
     // Clock
     private ListPreference mStatusBarAmPm;
-    private ListPreference mStatusBarClockStyle;
+    private CheckBoxPreference mStatusBarClock;
     // Quick Settings
     private ListPreference mQuickPulldown;
     // Network Traffic
@@ -134,13 +134,9 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             }
 
             // Clock
-            mStatusBarClockStyle = (ListPreference) findPreference(STATUS_BAR_CLOCK_STYLE);
-            int statusBarClockStyle = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.STATUS_BAR_CLOCK_STYLE, 1);
-            mStatusBarClockStyle.setValue(String.valueOf(statusBarClockStyle));
-            mStatusBarClockStyle.setSummary(mStatusBarClockStyle.getEntry());
-            mStatusBarClockStyle.setOnPreferenceChangeListener(this);
-            
+            mStatusBarClock = (CheckBoxPreference) getPreferenceScreen().findPreference(STATUS_BAR_CLOCK);
+            mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_CLOCK, 1) == 1));
             // Am-Pm
             mStatusBarAmPm = (ListPreference) getPreferenceScreen().findPreference(STATUS_BAR_AM_PM);
             try {
@@ -183,14 +179,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_BATTERY, batteryStyleValue);
             mStatusBarBattery.setSummary(mStatusBarBattery.getEntries()[batteryStyleIndex]);
-            return true;
-
-        } else if (preference == mStatusBarClockStyle) {
-            int statusBarClockStyle = Integer.valueOf((String) objValue);
-            int index = mStatusBarClockStyle.findIndexOfValue((String) objValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.STATUS_BAR_CLOCK_STYLE, statusBarClockStyle);
-            mStatusBarClockStyle.setSummary(mStatusBarClockStyle.getEntries()[index]);
             return true;
 
         } else if (preference == mStatusBarAmPm) {
@@ -266,6 +254,18 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             value = mStatusBarBrightnessControl.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, value ? 1 : 0);
+            return true;
+
+        } else if (preference == mStatusBarDoubleTapSleepGesture) {
+            value = mStatusBarDoubleTapSleepGesture.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE, value ? 1: 0);
+            return true;
+
+        } else if (preference == mStatusBarClock) {
+            value = mStatusBarClock.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_CLOCK, value ? 1 : 0);
             return true;
         }
         return false;
