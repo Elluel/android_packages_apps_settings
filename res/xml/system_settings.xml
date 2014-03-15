@@ -14,6 +14,11 @@
         android:title="@string/navigation_bar_title" />
 
    <PreferenceScreen
+        android:key="lichti_tweaks"
+        android:fragment="com.android.settings.rascarlo.LichtiTweaks"
+        android:title="@string/lichti_tweaks_title" />
+
+   <PreferenceScreen
         android:fragment="com.android.settings.rascarlo.VolumeRocker"
         android:key="volume_rocker_settings"
         android:title="@string/volume_rocker_category_title" />
