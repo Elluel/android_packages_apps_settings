@@ -189,6 +189,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
         return false;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void loadResources() {
         Resources resources = getActivity().getResources();
         MASK_UP = resources.getInteger(R.integer.maskUp);
