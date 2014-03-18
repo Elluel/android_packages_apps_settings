@@ -7,6 +7,11 @@
         android:fragment="com.android.settings.rascarlo.StatusBarSettings"
         android:key="status_bar"
         android:title="@string/status_bar_title" />
+
+   <PreferenceScreen
+        android:fragment="com.android.settings.rascarlo.StatusBarClockStyle"
+        android:key="clock_style_pref"
+        android:title="@string/status_bar_clock" />
     
    <PreferenceScreen
         android:key="navigation_bar"
