@@ -14,6 +14,22 @@ limitations under the License.
  <PreferenceScreen
      xmlns:android="http://schemas.android.com/apk/res/android">
 
+	<PreferenceCategory
+            android:key="category_app_circle_bar"
+            android:title="@string/category_app_circle_bar_title"/>
+
+    <CheckBoxPreference
+        android:key="enable_app_circle_bar"
+        android:title="@string/app_circle_bar_title"
+        android:summary="@string/app_circle_bar_summary" />
+
+    <com.android.settings.rascarlo.lsn.AppMultiSelectListPreference
+        android:key="app_circle_bar_included_apps"
+        android:persistent="false"
+        android:title="@string/app_circle_bar_included_apps_title"
+        android:summary="@string/app_circle_bar_included_apps_summary"
+        android:dependency="enable_app_circle_bar" />
+
     <CheckBoxPreference
             android:key="recents_use_omniswitch"
             android:title="@string/recents_use_omniswitch_title"
@@ -25,5 +41,4 @@ limitations under the License.
             android:title="@string/omniswitch_start_settings_title"
             android:summary="@string/omniswitch_start_settings_summary"
             android:persistent="false" />
-
  </PreferenceScreen>

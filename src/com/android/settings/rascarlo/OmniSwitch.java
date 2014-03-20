@@ -36,7 +36,13 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
-import android.util.Log;
+import android.text.TextUtils;
+
+import com.android.settings.rascarlo.lsn.AppMultiSelectListPreference;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class OmniSwitch extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -51,9 +57,12 @@ public class OmniSwitch extends SettingsPreferenceFragment implements
     public static Intent INTENT_OMNISWITCH_SETTINGS = new Intent(Intent.ACTION_MAIN)
             .setClassName(OMNISWITCH_PACKAGE_NAME, OMNISWITCH_PACKAGE_NAME + ".SettingsActivity");
 
+    private static final String PREF_INCLUDE_APP_CIRCLE_BAR_KEY = "app_circle_bar_included_apps";
+
     private CheckBoxPreference mRecentsUseOmniSwitch;
     private Preference mOmniSwitchSettings;
     private boolean mOmniSwitchInitCalled;
+    private AppMultiSelectListPreference mIncludedAppCircleBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,11 @@ public class OmniSwitch extends SettingsPreferenceFragment implements
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
 
+        mIncludedAppCircleBar = (AppMultiSelectListPreference) prefSet.findPreference(PREF_INCLUDE_APP_CIRCLE_BAR_KEY);
+        Set<String> includedApps = getIncludedApps();
+        if (includedApps != null) mIncludedAppCircleBar.setValues(includedApps);
+        mIncludedAppCircleBar.setOnPreferenceChangeListener(this);
+      
         mRecentsUseOmniSwitch = (CheckBoxPreference)
                 prefSet.findPreference(RECENTS_USE_OMNISWITCH);
 
@@ -91,7 +105,9 @@ public class OmniSwitch extends SettingsPreferenceFragment implements
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         ContentResolver resolver = getActivity().getContentResolver();
-        if (preference == mRecentsUseOmniSwitch) {
+        if (preference == mIncludedAppCircleBar) {
+            storeIncludedApps((Set<String>) objValue);
+        } else if (preference == mRecentsUseOmniSwitch) {
             boolean value = (Boolean) objValue;
             if (value && !isOmniSwitchInstalled()){
                 openOmniSwitchNotInstalledWarning();
@@ -145,5 +161,26 @@ public class OmniSwitch extends SettingsPreferenceFragment implements
         } catch (NameNotFoundException e) {
             return false;
         }
+    }
+
+    private Set<String> getIncludedApps() {
+        String included = Settings.System.getString(getActivity().getContentResolver(),
+                Settings.System.WHITELIST_APP_CIRCLE_BAR);
+        if (TextUtils.isEmpty(included)) {
+            return null;
+        }
+        return new HashSet<String>(Arrays.asList(included.split("\\|")));
+    }
+
+    private void storeIncludedApps(Set<String> values) {
+        StringBuilder builder = new StringBuilder();
+        String delimiter = "";
+        for (String value : values) {
+            builder.append(delimiter);
+            builder.append(value);
+            delimiter = "|";
+        }
+        Settings.System.putString(getActivity().getContentResolver(),
+                Settings.System.WHITELIST_APP_CIRCLE_BAR, builder.toString());
     }
 }
