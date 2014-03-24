@@ -94,22 +94,18 @@
     <string name="reset">Reset</string>
     <string name="ok">OK</string>
 
-    <!-- Status bar circle battery -->
-    <string name="status_bar_battery_title">Battery style</string>
-    <string name="status_bar_style_icon">Icon</string>
-    <string name="status_bar_style_icon_percentage">Icon with percentage</string>
-    <string name="status_bar_style_hidden">Hidden</string>
-    <string name="status_bar_battery_status_circle">Circle</string>
-    <string name="status_bar_battery_status_circle_percentage">Circle with percentage</string>
+    <!-- Status bar clock -->
+    <string name="status_bar_clock_title">Clock</string>
+    <string name="status_bar_show_clock_title">Show clock</string>
+    <string name="status_bar_am_pm_title">AM/PM style</string>
+    <string name="status_bar_am_pm_info">24-hour clock must be disabled</string>
     <!-- Status bar quick settings -->
-    <!-- Statusbar native battery percent -->
-    <string name="status_bar_native_battery_percentage">Native battery percentage</string>
     <!-- Quick settings -->
-    <string name="status_bar_quick_settings_category">Quick settings</string>
-    <string name="quick_pulldown_title">Quick pulldown</string>
+    <string name="quick_pulldown_title">Quick Settings pulldown</string>
     <string name="quick_pulldown_off">Off</string>
     <string name="quick_pulldown_left">Left</string>
     <string name="quick_pulldown_right">Right</string>
+    
     <!-- Status bar brightness control -->
     <string name="status_bar_toggle_brightness">Brightness control</string>
     <string name="status_bar_toggle_brightness_summary">Adjust brightness by sliding across status bar</string>

@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.TrafficStats;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
@@ -21,29 +22,21 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
-public class StatusBarSettings extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
+public class StatusBarSettings extends SettingsPreferenceFragment implements
+OnPreferenceChangeListener {
 
     // General
     private static String STATUS_BAR_GENERAL_CATEGORY = "status_bar_general_category";
-    // Brightness control
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     // Network Traffic
     private static final String NETWORK_TRAFFIC_STATE = "network_traffic_state";
     private static final String NETWORK_TRAFFIC_UNIT = "network_traffic_unit";
     private static final String NETWORK_TRAFFIC_PERIOD = "network_traffic_period";
-    // Status bar battery style
-    private static final String STATUS_BAR_BATTERY = "status_bar_battery";
-    private static final String STATUS_BAR_NATIVE_BATTERY_PERCENTAGE = "status_bar_native_battery_percentage";
     // Quick Settings
     private static final String QUICK_SETTINGS_CATEGORY = "status_bar_quick_settings_category";
     private static final String QUICK_PULLDOWN = "quick_pulldown";
+    private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
 
-    // General
-    private PreferenceCategory mStatusBarGeneralCategory;
-    // Status bar battery style
-    private ListPreference mStatusBarBattery;
-    // Brightness control
-    private CheckBoxPreference mStatusBarBrightnessControl;
     // Quick Settings
     private ListPreference mQuickPulldown;
     // Network Traffic
@@ -56,6 +49,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
     private int MASK_DOWN;
     private int MASK_UNIT;
     private int MASK_PERIOD;
+    private CheckBoxPreference mStatusBarBrightnessControl;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,14 +74,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
                     }
                 } catch (SettingNotFoundException e) {
             }
-
-            // Status bar battery style
-            mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY);
-            mStatusBarBattery.setOnPreferenceChangeListener(this);
-            int batteryStyleValue = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.STATUS_BAR_BATTERY, 0);
-            mStatusBarBattery.setValue(String.valueOf(batteryStyleValue));
-            mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
 
             // Network Traffic
             mNetTrafficState = (ListPreference) getPreferenceScreen().findPreference(NETWORK_TRAFFIC_STATE);
@@ -138,19 +124,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
                 mQuickPulldown.setValue(String.valueOf(quickPulldownValue));
                 mQuickPulldown.setSummary(mQuickPulldown.getEntry());
             }
-        }
+    }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
 
-        if (preference == mStatusBarBattery) {
-            int batteryStyleValue = Integer.valueOf((String) objValue);
-            int batteryStyleIndex = mStatusBarBattery.findIndexOfValue((String) objValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.STATUS_BAR_BATTERY, batteryStyleValue);
-            mStatusBarBattery.setSummary(mStatusBarBattery.getEntries()[batteryStyleIndex]);
-            return true;
-
-        } else if (preference == mNetTrafficState) {
+        if (preference == mNetTrafficState) {
             int intState = Integer.valueOf((String)objValue);
             mNetTrafficVal = setBit(mNetTrafficVal, MASK_UP, getBit(intState, MASK_UP));
             mNetTrafficVal = setBit(mNetTrafficVal, MASK_DOWN, getBit(intState, MASK_DOWN));
@@ -176,7 +154,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
             Settings.System.putInt(getActivity().getContentResolver(), Settings.System.NETWORK_TRAFFIC_STATE, mNetTrafficVal);
             int index = mNetTrafficPeriod.findIndexOfValue((String) objValue);
             mNetTrafficPeriod.setSummary(mNetTrafficPeriod.getEntries()[index]);
-
         } else if (preference == mQuickPulldown) {
             int quickPulldownValue = Integer.valueOf((String) objValue);
             int quickPulldownIndex = mQuickPulldown.findIndexOfValue((String) objValue);
@@ -184,7 +161,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements OnP
                     Settings.System.QS_QUICK_PULLDOWN, quickPulldownValue);
             mQuickPulldown.setSummary(mQuickPulldown.getEntries()[quickPulldownIndex]);
             return true;
-
         }
         return false;
     }

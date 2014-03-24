@@ -27,9 +27,11 @@ import com.android.settings.SettingsPreferenceFragment;
 public class SystemSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
     private static final String TAG = "SystemSettings";
-    private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
+    private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";    
+    private static final String KEY_LED_SETTINGS = "led_settings";
 
     private PreferenceScreen mNotificationPulse;
+    private PreferenceScreen mLedSettings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
