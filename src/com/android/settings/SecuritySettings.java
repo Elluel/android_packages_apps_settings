@@ -91,6 +91,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     // Rasta Tweaks
     private static final String KEY_ENABLE_CAMERA = "lockscreen_enable_camera";
     private static final String KEY_ENABLE_POWER_MENU = "lockscreen_enable_power_menu";
+    private static final String KEY_SEE_THROUGH = "lockscreen_see_through";
     private static final String LOCKSCREEN_MAXIMIZE_WIDGETS = "lockscreen_maximize_widgets";
     private static final String KEY_ALWAYS_BATTERY_PREF = "lockscreen_battery_status";
 
@@ -116,6 +117,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private CheckBoxPreference mEnableKeyguardWidgets;
     private CheckBoxPreference mEnableCameraWidget;
     private CheckBoxPreference mEnablePowerMenu;
+    private CheckBoxPreference mSeeThrough;
     private CheckBoxPreference mMaximizeKeyguardWidgets;
 
     private CheckBoxPreference mBatteryStatus;
@@ -264,6 +266,12 @@ public class SecuritySettings extends RestrictedSettingsFragment
         mEnablePowerMenu.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_ENABLE_POWER_MENU, 1) == 1);
         mEnablePowerMenu.setOnPreferenceChangeListener(this);
+
+        // Lockscreen Blur
+        mSeeThrough = (CheckBoxPreference) findPreference(KEY_SEE_THROUGH);
+        mSeeThrough.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1);
+        mSeeThrough.setOnPreferenceChangeListener(this);
 
         // Lockscreen maximized widgets
         mMaximizeKeyguardWidgets = (CheckBoxPreference) root.findPreference(LOCKSCREEN_MAXIMIZE_WIDGETS);
@@ -684,6 +692,10 @@ public class SecuritySettings extends RestrictedSettingsFragment
             boolean newValue = (Boolean) value;
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKSCREEN_ENABLE_CAMERA, newValue ? 1 : 0);
+        } else if (preference == mSeeThrough) {
+            boolean newValue = (Boolean) value;
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_SEE_THROUGH, newValue ? 1 : 0);
         } else if (preference == mBatteryStatus) {
             boolean newValue = (Boolean) value;
             Settings.System.putInt(getContentResolver(),
