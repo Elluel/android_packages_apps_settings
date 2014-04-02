@@ -421,6 +421,9 @@
     <string name="quiet_hours_alarm_and">" and "</string>
     <string name="quiet_hours_alarm_dialog_title">QUIETHOURS BYPASSED</string>
     <string name="quiet_hours_alarm_message">" met the requirements to bypass Quiet Hours!"</string>
+    <string name="quiet_hours_auto_title">Follow ringer mode</string>
+    <string name="quiet_hours_auto_silent">Quiet hours will enable when ringer is set to silent</string>
+    <string name="quiet_hours_auto_vibrate">Quiet hours will enable when ringer is set to vibrate or silent</string>
 
     <!-- time range preference -->
     <string name="start_time_title">Start</string>
