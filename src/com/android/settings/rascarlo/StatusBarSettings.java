@@ -193,6 +193,7 @@ OnPreferenceChangeListener {
         return (intNumber & intMask) == intMask;
     }
 
+    @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         boolean value;
         if (preference == mStatusBarBrightnessControl) {
@@ -202,6 +203,6 @@ OnPreferenceChangeListener {
             return true;
 
         }
-        return false;
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 }
