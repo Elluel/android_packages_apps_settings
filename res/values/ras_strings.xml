@@ -58,7 +58,8 @@
     <!-- Status bar  -->
     <string name="status_bar_title">Status bar</string>
     <string name="status_bar_style_title">Style</string>
- <!-- Status bar | Clock -->
+
+    <!-- Status bar | Clock -->
     <string name="status_bar_clock">Clock and date</string>
     <string name="status_bar_clock_title">Clock and date style</string>
     <string name="clock_title_enable">Alignment</string>
@@ -94,13 +95,8 @@
     <string name="reset">Reset</string>
     <string name="ok">OK</string>
 
-    <!-- Status bar clock -->
-    <string name="status_bar_clock_title">Clock</string>
-    <string name="status_bar_show_clock_title">Show clock</string>
-    <string name="status_bar_am_pm_title">AM/PM style</string>
-    <string name="status_bar_am_pm_info">24-hour clock must be disabled</string>
-    <!-- Status bar quick settings -->
     <!-- Quick settings -->
+    <string name="status_bar_quick_settings_category">Quick settings</string>
     <string name="quick_pulldown_title">Quick Settings pulldown</string>
     <string name="quick_pulldown_off">Off</string>
     <string name="quick_pulldown_left">Left</string>

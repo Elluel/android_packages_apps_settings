@@ -86,7 +86,7 @@ OnPreferenceChangeListener {
             }
 
 	    mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY);
-            int batteryStyle = Settings.System.getInt(resolver, Settings.System.STATUS_BAR_BATTERY, 0);
+            int batteryStyle = Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 0);
             mStatusBarBattery.setValue(String.valueOf(batteryStyle));
             mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
             mStatusBarBattery.setOnPreferenceChangeListener(this);
@@ -184,7 +184,7 @@ OnPreferenceChangeListener {
         } else if (preference == mStatusBarBattery) {
             int batteryStyle = Integer.valueOf((String) objValue);
             int index = mStatusBarBattery.findIndexOfValue((String) objValue);
-            Settings.System.putInt(resolver, Settings.System.STATUS_BAR_BATTERY, batteryStyle);
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, batteryStyle);
             mStatusBarBattery.setSummary(mStatusBarBattery.getEntries()[index]);
             return true;
         }
