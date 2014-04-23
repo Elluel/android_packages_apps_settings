@@ -27,6 +27,8 @@ OnPreferenceChangeListener {
 
     // General
     private static String STATUS_BAR_GENERAL_CATEGORY = "status_bar_general_category";
+
+    // Battery
     private static final String STATUS_BAR_BATTERY = "status_bar_battery";
     private static final String STATUS_BAR_BATTERY_SHOW_PERCENT = "status_bar_battery_show_percent";
     private static final String STATUS_BAR_STYLE_HIDDEN = "4";
@@ -44,6 +46,7 @@ OnPreferenceChangeListener {
 
     // General
     private PreferenceCategory mStatusBarGeneralCategory;
+    // Battery
     private ListPreference mStatusBarBattery;
     private CheckBoxPreference mStatusBarBatteryShowPercent;
     // Brightness control
@@ -72,8 +75,8 @@ OnPreferenceChangeListener {
 
             // General category
             mStatusBarGeneralCategory = (PreferenceCategory) findPreference(STATUS_BAR_GENERAL_CATEGORY);
+            // Status bar brightness control
             mStatusBarBrightnessControl = (CheckBoxPreference) getPreferenceScreen().findPreference(STATUS_BAR_BRIGHTNESS_CONTROL);
-                // Status bar brightness control
                 mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(), 
                         Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
                 try {
@@ -85,15 +88,16 @@ OnPreferenceChangeListener {
                 } catch (SettingNotFoundException e) {
             }
 
-	    mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY);
-            int batteryStyle = Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 0);
+            // Status bar battery
+	    mStatusBarBattery = (ListPreference) getPreferenceScreen().findPreference(STATUS_BAR_BATTERY);
+            int batteryStyle = Settings.System.getInt(getActivity().getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 0);
             mStatusBarBattery.setValue(String.valueOf(batteryStyle));
             mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
             mStatusBarBattery.setOnPreferenceChangeListener(this);
 
-     	    mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY);
-            mStatusBarBatteryShowPercent =
-                    (CheckBoxPreference) findPreference(STATUS_BAR_BATTERY_SHOW_PERCENT);
+            mStatusBarBatteryShowPercent = (CheckBoxPreference) getPreferenceScreen().findPreference(STATUS_BAR_BATTERY_SHOW_PERCENT);
+            mStatusBarBatteryShowPercent.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                      Settings.System.STATUS_BAR_BATTERY_SHOW_PERCENT, 0) == 1));
 
             // Network Traffic
             mNetTrafficState = (ListPreference) getPreferenceScreen().findPreference(NETWORK_TRAFFIC_STATE);
@@ -184,7 +188,7 @@ OnPreferenceChangeListener {
         } else if (preference == mStatusBarBattery) {
             int batteryStyle = Integer.valueOf((String) objValue);
             int index = mStatusBarBattery.findIndexOfValue((String) objValue);
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, batteryStyle);
+            Settings.System.putInt(getActivity().getContentResolver(), Settings.System.STATUS_BAR_BATTERY, batteryStyle);
             mStatusBarBattery.setSummary(mStatusBarBattery.getEntries()[index]);
             return true;
         }
@@ -224,7 +228,11 @@ OnPreferenceChangeListener {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, value ? 1 : 0);
             return true;
-
+        } else if (preference == mStatusBarBatteryShowPercent) {
+            value = mStatusBarBatteryShowPercent.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_BATTERY_SHOW_PERCENT, value ? 1 : 0);
+            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
