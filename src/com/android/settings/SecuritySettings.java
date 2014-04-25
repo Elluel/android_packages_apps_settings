@@ -263,9 +263,11 @@ public class SecuritySettings extends RestrictedSettingsFragment
 
         // Enable / disable power menu on lockscreen
         mEnablePowerMenu = (CheckBoxPreference) findPreference(KEY_ENABLE_POWER_MENU);
-        mEnablePowerMenu.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.LOCKSCREEN_ENABLE_POWER_MENU, 1) == 1);
-        mEnablePowerMenu.setOnPreferenceChangeListener(this);
+        if (mEnablePowerMenu != null) {
+            mEnablePowerMenu.setChecked(Settings.System.getInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_ENABLE_POWER_MENU, 1) == 1);
+            mEnablePowerMenu.setOnPreferenceChangeListener(this);
+        }
 
         // Lockscreen Blur
         mSeeThrough = (CheckBoxPreference) findPreference(KEY_SEE_THROUGH);
