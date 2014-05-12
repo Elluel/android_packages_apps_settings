@@ -38,7 +38,7 @@
     <string name="system_settings_title">Build Tweaks</string>
     <string name="system_interface_title">Build Tweaks</string>
     <!-- lichti tweaks -->
-    <string name="lichti_tweaks_title">Lichti Addons</string>
+    <string name="lichti_tweaks_title">Lichti addons</string>
     
     <!-- Volume rocker behaviours -->
     <string name="volume_rocker_category_title">Volume rocker</string>
@@ -425,7 +425,6 @@
 
     <!--Notification category-->
     <string name="notification_category">Notifications</string>
-
     <!--Notification peek-->
     <string name="notification_peek_title">Notification peek</string>
     <string name="notification_peek_summary">Show latest notification after picking up your device</string>

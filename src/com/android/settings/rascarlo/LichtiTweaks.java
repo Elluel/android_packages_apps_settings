@@ -32,8 +32,8 @@ import android.provider.Settings;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
-public class LichtiTweaks extends SettingsPreferenceFragment implements
-        Preference.OnPreferenceChangeListener {
+public class LichtiTweaks extends SettingsPreferenceFragment {
+
     private static final String TAG = "LichtiTweaks";
 
     private static final String KEY_PEEK = "notification_peek";
@@ -43,22 +43,15 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ContentResolver resolver = getActivity().getContentResolver();
 
         addPreferencesFromResource(R.xml.lichti_tweaks);
 
-        mNotificationPeek = (CheckBoxPreference) findPreference(KEY_PEEK);
-        mNotificationPeek.setPersistent(false);
-    }
-
-    private void updateState() {
-        updatePeekCheckbox();
-    }
-
-    private void updatePeekCheckbox() {
-        boolean enabled = Settings.System.getInt(getContentResolver(),
-                Settings.System.PEEK_STATE, 0) == 1;
-        mNotificationPeek.setChecked(enabled);
+        // Peek
+        mNotificationPeek = (CheckBoxPreference) getPreferenceScreen() 
+                .findPreference(KEY_PEEK);
+        mNotificationPeek.setChecked((Settings.System.getInt(getActivity()
+                .getApplicationContext().getContentResolver(),
+                Settings.System.PEEK_STATE, 0) == 1));
     }
 
     @Override
@@ -72,16 +65,13 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        boolean value;
         if (preference == mNotificationPeek) {
-            Settings.System.putInt(getContentResolver(), Settings.System.PEEK_STATE,
-                    mNotificationPeek.isChecked() ? 1 : 0);
+            value = mNotificationPeek.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(), 
+                    Settings.System.PEEK_STATE, value ? 1 : 0);
+            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
