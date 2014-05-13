@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.TrafficStats;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;

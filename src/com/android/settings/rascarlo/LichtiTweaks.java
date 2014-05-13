@@ -24,21 +24,27 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
+import android.util.Log;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.Utils;
 
-public class LichtiTweaks extends SettingsPreferenceFragment {
+public class LichtiTweaks extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
     private static final String TAG = "LichtiTweaks";
 
     private static final String KEY_PEEK = "notification_peek";
+    private static final String KEY_PEEK_PICKUP_TIMEOUT = "peek_pickup_timeout";
 
     private CheckBoxPreference mNotificationPeek;
+    private ListPreference mPeekPickupTimeout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,15 @@ public class LichtiTweaks extends SettingsPreferenceFragment {
         mNotificationPeek.setChecked((Settings.System.getInt(getActivity()
                 .getApplicationContext().getContentResolver(),
                 Settings.System.PEEK_STATE, 0) == 1));
+
+        // Peek pickup timeout
+        mPeekPickupTimeout = (ListPreference) getPreferenceScreen()
+                .findPreference(KEY_PEEK_PICKUP_TIMEOUT);
+        int peekTimeout = Settings.System.getInt(getContentResolver(),
+                Settings.System.PEEK_PICKUP_TIMEOUT, 10000);
+        mPeekPickupTimeout.setValue(String.valueOf(peekTimeout));
+        mPeekPickupTimeout.setSummary(mPeekPickupTimeout.getEntry());
+        mPeekPickupTimeout.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -62,6 +77,18 @@ public class LichtiTweaks extends SettingsPreferenceFragment {
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    public boolean onPreferenceChange(Preference preference, Object objValue) {
+        if (preference == mPeekPickupTimeout) {
+            int index = mPeekPickupTimeout.findIndexOfValue((String) objValue);
+            int peekTimeout = Integer.valueOf((String) objValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.PEEK_PICKUP_TIMEOUT, peekTimeout);
+            mPeekPickupTimeout.setSummary(mPeekPickupTimeout.getEntries()[index]);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -76,5 +103,3 @@ public class LichtiTweaks extends SettingsPreferenceFragment {
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 }
-
-
