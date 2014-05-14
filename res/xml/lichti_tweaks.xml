@@ -3,68 +3,94 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/lichti_tweaks_title" >
 
-    <!-- Notifications PEEK -->
+    <!-- Notification PEEK -->
     <PreferenceCategory
-        android:key="notification_category"
-        android:title="@string/notification_category">
+            android:title="@string/ras_notification_title">
 
-        <CheckBoxPreference
-            android:key="notification_peek"
-            android:title="@string/notification_peek_title"
-            android:summary="@string/notification_peek_summary" />
+            <PreferenceScreen
+                    android:key="ras_notification_category"
+                    android:title="@string/notification_peek_title">
 
-        <ListPreference
-            android:key="peek_pickup_timeout"
-            android:title="@string/peek_pickup_timeout_title"
-            android:entries="@array/peek_pickup_timeout_entries"
-            android:entryValues="@array/peek_pickup_timeout_values"
-            android:dependency="notification_peek" />
+                    <CheckBoxPreference
+                            android:key="notification_peek"
+                            android:title="@string/notification_peek_title"
+                            android:summary="@string/notification_peek_summary" />
 
-        <ListPreference
-            android:key="peek_wake_timeout"
-            android:title="@string/peek_wake_timeout_title"
-            android:entries="@array/peek_wake_timeout_entries"
-            android:entryValues="@array/peek_wake_timeout_values"
-            android:dependency="notification_peek" />
+                    <ListPreference
+                            android:key="peek_pickup_timeout"
+                            android:title="@string/peek_pickup_timeout_title"
+                            android:entries="@array/peek_pickup_timeout_entries"
+                            android:entryValues="@array/peek_pickup_timeout_values"
+                            android:dependency="notification_peek" />
+
+                    <ListPreference
+                            android:key="peek_wake_timeout"
+                            android:title="@string/peek_wake_timeout_title"
+                            android:entries="@array/peek_wake_timeout_entries"
+                            android:entryValues="@array/peek_wake_timeout_values"
+                            android:dependency="notification_peek" />
+            </PreferenceScreen>
+    </PreferenceCategory>
+
+    <!-- Appcircle Sidebar -->
+    <PreferenceCategory
+            android:key="@string/ras_app_circle_bar_category"
+            android:title="@string/ras_app_circle_bar_title">
+
+            <PreferenceScreen
+                    android:id="@+id/app_circle_sidebar"
+                    android:title="@string/app_circle_bar_title"
+                    android:summary="@string/app_circle_sidebar_summary_real"
+                    android:fragment="com.android.settings.rascarlo.AppCircleSidebar" />
     </PreferenceCategory>
 
     <!-- Lockscreen Tweaks -->
     <PreferenceCategory
-        android:key="ras_lockscreen_category"
-        android:title="@string/ras_lockscreen_category">
+            android:title="@string/ras_lockscreen_category">
 
-        <CheckBoxPreference
-            android:key="lockscreen_enable_power_menu"
-            android:title="@string/lockscreen_enable_power_menu_title"
-            android:summary="@string/lockscreen_enable_power_menu_summary"
-            android:persistent="false" />
+            <PreferenceScreen
+                    android:key="ras_lockscreen_category"
+                    android:title="@string/ras_lockscreen_title"
+                    android:summary="@string/ras_lockscreen_summary">
 
-        <CheckBoxPreference
-            android:key="lockscreen_see_through"
-            android:title="@string/lockscreen_see_through_title"
-            android:summary="@string/lockscreen_see_through_summary"
-            android:persistent="false" />
+                    <CheckBoxPreference
+                            android:key="lockscreen_enable_power_menu"
+                            android:title="@string/lockscreen_enable_power_menu_title"
+                            android:summary="@string/lockscreen_enable_power_menu_summary"
+                            android:persistent="false" />
 
-        <PreferenceScreen
-            android:key="keyguard_style"
-            android:fragment="com.android.settings.rascarlo.LockscreenStyle"
-            android:title="@string/lockscreen_style_title"/>
+                    <CheckBoxPreference
+                            android:key="lockscreen_see_through"
+                            android:title="@string/lockscreen_see_through_title"
+                            android:summary="@string/lockscreen_see_through_summary"
+                            android:persistent="false" />
+
+                    <PreferenceScreen
+                            android:key="keyguard_style"
+                            android:fragment="com.android.settings.rascarlo.LockscreenStyle"
+                            android:title="@string/lockscreen_style_title"/>
+            </PreferenceScreen>
     </PreferenceCategory>
 
     <!-- Privacy Guard and Wakelockblocker -->
     <PreferenceCategory
-        android:key="ras_security_category"
-        android:title="@string/ras_security_category">
+            android:title="@string/ras_security_category">
 
-        <PreferenceScreen
-            android:fragment="com.android.settings.slim.privacyguard.PrivacyGuardManager"
-            android:title="@string/privacy_guard_manager_title"
-            android:id="@+id/privacy_guard_manager" />
+            <PreferenceScreen
+                    android:key="ras_security_category"
+                    android:title="@string/ras_security_title"
+                    android:summary="@string/ras_security_summary">
 
-        <PreferenceScreen
-            android:key="wakelock_blocker"
-            android:fragment="com.android.settings.rascarlo.WakeLockBlocker"
-            android:title="@string/wakelock_blocker" />
+                    <PreferenceScreen
+                            android:fragment="com.android.settings.slim.privacyguard.PrivacyGuardManager"
+                            android:title="@string/privacy_guard_manager_title"
+                            android:id="@+id/privacy_guard_manager" />
+
+                    <PreferenceScreen
+                            android:key="wakelock_blocker"
+                            android:fragment="com.android.settings.rascarlo.WakeLockBlocker"
+                            android:title="@string/wakelock_blocker" />
+            </PreferenceScreen>
     </PreferenceCategory>
 
 </PreferenceScreen>

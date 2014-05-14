@@ -285,6 +285,8 @@
 
     <!-- Rastakat Security -->
     <string name="ras_security_category">Rasta Security</string>
+    <string name="ras_security_title">Security Settings</string>
+    <string name="ras_security_summary">Privacy guard and wakelock blocker</string>
     <!-- AppOps additions -->
     <string name="appops_settings">Apps permissions</string>
     <string name="appops_sysapp_beware">Beware!</string>
@@ -326,6 +328,8 @@
 
     <!-- Rasta Lockscreen Tweaks -->
     <string name="ras_lockscreen_category">Rasta Lockscreen addons</string>
+    <string name="ras_lockscreen_title">Lockscreen tweaks</string>
+    <string name="ras_lockscreen_summary">Tweak your rasta lockscreen</string>
     <!-- Enable power menu -->
     <string name="lockscreen_enable_power_menu_title">Enable power menu</string>
     <string name="lockscreen_enable_power_menu_summary">Show power menu when screen is locked</string>
@@ -363,9 +367,11 @@
     <string name="status_bar_style_hidden">Hidden</string>
     <string name="status_bar_battery_show_percent_title">Show battery status percent</string>
 
-    <!--Notification category-->
-    <string name="notification_category">Notifications</string>
-    <!--Notification peek-->
+    <!-- Notifications -->
+    <string name="ras_notification_category">Rasta Notifications</string>
+    <string name="ras_notification_title">Notifications</string>
+    <string name="ras_notification_summary">Lockscreen notification peek</string>
+    <!-- Notification peek-->
     <string name="notification_peek_title">Notification peek</string>
     <string name="notification_peek_summary">Show latest notification after picking up your device</string>
     <!-- peek pickup timeout -->
@@ -404,4 +410,13 @@
     <string name="lockscreen_lock_color_summary">Color of the lock handles</string>
     <string name="lockscreen_dots_color_title">Dots color</string>
     <string name="lockscreen_dots_color_summary">Color of the glowpad dots</string>
+
+    <!-- App Circle Sidebar -->
+    <string name="ras_app_circle_bar_category">App launcher</string>
+    <string name="ras_app_circle_bar_title">Rasta App Launcher</string>
+    <string name="app_circle_bar_title">App sidebar</string>
+    <string name="app_circle_sidebar_summary_real">Launch apps faster from a sidebar and open multiple apps on one screen to multitask</string>
+    <string name="app_circle_bar_summary">Show app launcher after touching right side of screen</string>
+    <string name="app_circle_bar_included_apps_title">Included apps</string>
+    <string name="app_circle_bar_included_apps_summary">Apps will show in app sidebar</string>
 </resources>
