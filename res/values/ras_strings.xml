@@ -283,6 +283,8 @@
     <string name="set">Set</string>
     <string name="color_default">Default</string>
 
+    <!-- Rastakat Security -->
+    <string name="ras_security_category">Rasta Security</string>
     <!-- AppOps additions -->
     <string name="appops_settings">Apps permissions</string>
     <string name="appops_sysapp_beware">Beware!</string>
