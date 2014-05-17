@@ -45,13 +45,11 @@
 
         <PreferenceScreen
             android:id="@+id/appops_settings"
-            android:icon="@drawable/ic_settings_applications"
             android:fragment="com.android.settings.applications.AppOpsSummary"
             android:title="@string/appops_settings" />
 
         <PreferenceScreen
             android:fragment="com.android.settings.slim.privacyguard.PrivacyGuardManager"
-            android:icon="@drawable/ic_settings_privacy"
             android:title="@string/privacy_guard_manager_title"
             android:id="@+id/privacy_guard_manager" />
 
