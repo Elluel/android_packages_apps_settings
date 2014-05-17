@@ -92,7 +92,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String KEY_ENABLE_CAMERA = "lockscreen_enable_camera";
     private static final String KEY_ENABLE_POWER_MENU = "lockscreen_enable_power_menu";
     private static final String KEY_SEE_THROUGH = "lockscreen_see_through";
-    private static final String LOCKSCREEN_MAXIMIZE_WIDGETS = "lockscreen_maximize_widgets";
     private static final String KEY_ALWAYS_BATTERY_PREF = "lockscreen_battery_status";
 
     private PackageManager mPM;
@@ -118,7 +117,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private CheckBoxPreference mEnableCameraWidget;
     private CheckBoxPreference mEnablePowerMenu;
     private CheckBoxPreference mSeeThrough;
-    private CheckBoxPreference mMaximizeKeyguardWidgets;
 
     private CheckBoxPreference mBatteryStatus;
 
@@ -275,13 +273,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
                 Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1);
         mSeeThrough.setOnPreferenceChangeListener(this);
 
-        // Lockscreen maximized widgets
-        mMaximizeKeyguardWidgets = (CheckBoxPreference) root.findPreference(LOCKSCREEN_MAXIMIZE_WIDGETS);
-        if (mMaximizeKeyguardWidgets != null) {
-            mMaximizeKeyguardWidgets.setChecked(Settings.System.getInt(getContentResolver(),
-                    Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0) == 1);
-        }
-
         // biometric weak liveliness
         mBiometricWeakLiveliness =
                 (CheckBoxPreference) root.findPreference(KEY_BIOMETRIC_WEAK_LIVELINESS);
@@ -322,6 +313,31 @@ public class SecuritySettings extends RestrictedSettingsFragment
         }
 
         mBatteryStatus = (CheckBoxPreference) root.findPreference(KEY_ALWAYS_BATTERY_PREF);
+
+        // Enable or disable keyguard widget checkbox based on DPM state
+        mEnableKeyguardWidgets = (CheckBoxPreference) root.findPreference(KEY_ENABLE_WIDGETS);
+        if (mEnableKeyguardWidgets != null) {
+            if (ActivityManager.isLowRamDeviceStatic()
+                    || mLockPatternUtils.isLockScreenDisabled()) {
+                // Widgets take a lot of RAM, so disable them on low-memory devices
+                PreferenceGroup securityCategory
+                        = (PreferenceGroup) root.findPreference(KEY_SECURITY_CATEGORY);
+                if (securityCategory != null) {
+                    securityCategory.removePreference(root.findPreference(KEY_ENABLE_WIDGETS));
+                    mEnableKeyguardWidgets = null;
+                }
+            } else {
+                final boolean disabled = (0 != (mDPM.getKeyguardDisabledFeatures(null)
+                        & DevicePolicyManager.KEYGUARD_DISABLE_WIDGETS_ALL));
+                if (disabled) {
+                    mEnableKeyguardWidgets.setSummary(
+                            R.string.security_enable_widgets_disabled_summary);
+                } else {
+                    mEnableKeyguardWidgets.setSummary("");
+                }
+                mEnableKeyguardWidgets.setEnabled(!disabled);
+            }
+        }
 
         // Show password
         mShowPassword = (CheckBoxPreference) root.findPreference(KEY_SHOW_PASSWORD);
@@ -623,11 +639,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
             lockPatternUtils.setPowerButtonInstantlyLocks(isToggled(preference));
         } else if (KEY_ENABLE_WIDGETS.equals(key)) {
             lockPatternUtils.setWidgetsEnabled(mEnableKeyguardWidgets.isChecked());
-
-        } else if (preference == mMaximizeKeyguardWidgets) {
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, isToggled(preference) ? 1 : 0);
-
         } else if (preference == mShowPassword) {
             Settings.System.putInt(getContentResolver(), Settings.System.TEXT_SHOW_PASSWORD,
                     mShowPassword.isChecked() ? 1 : 0);
