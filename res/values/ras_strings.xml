@@ -346,6 +346,8 @@
     <string name="five">Five</string>
     <string name="six">Six</string>
 
+    <!-- Rasta Silence -->
+    <string name="ras_silence_category"> Rasta Silence</string>
     <!-- Quiet hours -->
     <string name="quiet_hours_title">Quiet hours</string>
     <string name="quiet_hours_summary">Configure the hours the device should be quiet</string>

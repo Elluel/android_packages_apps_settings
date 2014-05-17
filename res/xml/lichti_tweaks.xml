@@ -28,6 +28,16 @@
             android:dependency="notification_peek" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="ras_silence_category"
+        android:title="@string/ras_silence_category">
+
+        <PreferenceScreen
+            android:key="quiet_hours_settings"
+            android:fragment="com.android.settings.rascarlo.QuietHours"
+            android:title="@string/quiet_hours_title" />
+    </PreferenceCategory>
+
     <!-- Appops and Privacy Guard -->
     <PreferenceCategory
         android:key="ras_security_category"
