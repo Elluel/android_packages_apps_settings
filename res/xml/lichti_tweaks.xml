@@ -28,6 +28,25 @@
             android:dependency="notification_peek" />
     </PreferenceCategory>
 
+    <!-- Lockscreen Tweaks -->
+    <PreferenceCategory
+        android:key="ras_lockscreen_category"
+        android:title="@string/ras_lockscreen_category">
+
+        <CheckBoxPreference
+            android:key="lockscreen_enable_power_menu"
+            android:title="@string/lockscreen_enable_power_menu_title"
+            android:summary="@string/lockscreen_enable_power_menu_summary"
+            android:persistent="false" />
+
+        <CheckBoxPreference
+            android:key="lockscreen_see_through"
+            android:title="@string/lockscreen_see_through_title"
+            android:summary="@string/lockscreen_see_through_summary"
+            android:persistent="false" />
+    </PreferenceCategory>
+
+    <!-- Quiet Hours -->
     <PreferenceCategory
         android:key="ras_silence_category"
         android:title="@string/ras_silence_category">
@@ -38,7 +57,7 @@
             android:title="@string/quiet_hours_title" />
     </PreferenceCategory>
 
-    <!-- Appops and Privacy Guard -->
+    <!-- Appops, Privacy Guard and Wakelockblocker -->
     <PreferenceCategory
         android:key="ras_security_category"
         android:title="@string/ras_security_category">

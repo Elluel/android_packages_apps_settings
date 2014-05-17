@@ -23,6 +23,7 @@ import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.RemoteException;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -40,13 +41,21 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
 
     private static final String TAG = "LichtiTweaks";
 
+    // Peek
     private static final String KEY_PEEK = "notification_peek";
     private static final String KEY_PEEK_PICKUP_TIMEOUT = "peek_pickup_timeout";
     private static final String KEY_PEEK_WAKE_TIMEOUT = "peek_wake_timeout";
+    // Lockscreen Tweaks
+    private static final String KEY_ENABLE_POWER_MENU = "lockscreen_enable_power_menu";
+    private static final String KEY_SEE_THROUGH = "lockscreen_see_through";
 
+    // Peek
     private CheckBoxPreference mNotificationPeek;
     private ListPreference mPeekPickupTimeout;
     private ListPreference mPeekWakeTimeout;
+    // Lockscreen Tweaks
+    private CheckBoxPreference mEnablePowerMenu;
+    private CheckBoxPreference mSeeThrough;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +87,20 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
         mPeekWakeTimeout.setValue(String.valueOf(peekWakeTimeout));
         mPeekWakeTimeout.setSummary(mPeekWakeTimeout.getEntry());
         mPeekWakeTimeout.setOnPreferenceChangeListener(this);
+
+        // Enable / disable power menu on lockscreen
+        mEnablePowerMenu = (CheckBoxPreference) getPreferenceScreen()
+                .findPreference(KEY_ENABLE_POWER_MENU);
+        mEnablePowerMenu.setChecked(Settings.System.getInt(getActivity()
+                .getApplicationContext().getContentResolver(),
+                Settings.System.LOCKSCREEN_ENABLE_POWER_MENU, 1) == 1);
+
+        // Lockscreen Blur
+        mSeeThrough = (CheckBoxPreference) getPreferenceScreen()
+                .findPreference(KEY_SEE_THROUGH);
+        mSeeThrough.setChecked(Settings.System.getInt(getActivity()
+                .getApplicationContext().getContentResolver(),
+                Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1);
     }
 
     @Override
@@ -116,6 +139,16 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             value = mNotificationPeek.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(), 
                     Settings.System.PEEK_STATE, value ? 1 : 0);
+            return true;
+        } else if (preference == mEnablePowerMenu) {
+            value = mEnablePowerMenu.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_ENABLE_POWER_MENU, value ? 1 : 0);
+            return true;
+        } else if (preference == mSeeThrough) {
+            value = mSeeThrough.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_SEE_THROUGH, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
