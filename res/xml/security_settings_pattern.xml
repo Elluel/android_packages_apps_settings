@@ -64,11 +64,6 @@
             android:summary="@string/lockscreen_see_through_summary"
             android:persistent="false" />
 
-        <CheckBoxPreference
-            android:key="lockscreen_battery_status"
-            android:title="@string/lockscreen_battery_status_title"
-            android:summary="@string/lockscreen_battery_status_summary" />
-
         <PreferenceScreen
             android:fragment="com.android.settings.OwnerInfoSettings"
             android:key="owner_info_settings"

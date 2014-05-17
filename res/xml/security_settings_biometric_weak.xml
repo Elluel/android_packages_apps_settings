@@ -61,7 +61,7 @@
             android:summary="@string/lockscreen_enable_camera_summary"
             android:persistent="false"/>
 
-        <CheckBoxPreference
+	<CheckBoxPreference
             android:key="lockscreen_enable_power_menu"
             android:title="@string/lockscreen_enable_power_menu_title"
             android:summary="@string/lockscreen_enable_power_menu_summary"
@@ -72,11 +72,6 @@
             android:title="@string/lockscreen_see_through_title"
             android:summary="@string/lockscreen_see_through_summary"
             android:persistent="false" />
-
-        <CheckBoxPreference
-            android:key="lockscreen_battery_status"
-            android:title="@string/lockscreen_battery_status_title"
-            android:summary="@string/lockscreen_battery_status_summary" />
 
         <PreferenceScreen
             android:fragment="com.android.settings.OwnerInfoSettings"
