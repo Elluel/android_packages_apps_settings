@@ -46,15 +46,10 @@
             android:persistent="false" />
     </PreferenceCategory>
 
-    <!-- Appops, Privacy Guard and Wakelockblocker -->
+    <!-- Privacy Guard and Wakelockblocker -->
     <PreferenceCategory
         android:key="ras_security_category"
         android:title="@string/ras_security_category">
-
-        <PreferenceScreen
-            android:id="@+id/appops_settings"
-            android:fragment="com.android.settings.applications.AppOpsSummary"
-            android:title="@string/appops_settings" />
 
         <PreferenceScreen
             android:fragment="com.android.settings.slim.privacyguard.PrivacyGuardManager"
