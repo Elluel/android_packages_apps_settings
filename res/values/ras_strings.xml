@@ -367,10 +367,10 @@
     <string name="status_bar_style_hidden">Hidden</string>
     <string name="status_bar_battery_show_percent_title">Show battery status percent</string>
 
-    <!-- Notifications -->
+    <!-- Rasta Notifications -->
     <string name="ras_notification_category">Rasta Notifications</string>
     <string name="ras_notification_title">Notifications</string>
-    <string name="ras_notification_summary">Lockscreen notification peek</string>
+    <string name="ras_notification_summary">Peek Settings</string>
     <!-- Notification peek-->
     <string name="notification_peek_title">Notification peek</string>
     <string name="notification_peek_summary">Show latest notification after picking up your device</string>

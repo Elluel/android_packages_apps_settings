@@ -5,11 +5,12 @@
 
     <!-- Notification PEEK -->
     <PreferenceCategory
-            android:title="@string/ras_notification_title">
+            android:title="@string/ras_notification_category">
 
             <PreferenceScreen
                     android:key="ras_notification_category"
-                    android:title="@string/notification_peek_title">
+                    android:title="@string/ras_notification_title"
+                    android:summary="@string/ras_notification_summary">
 
                     <CheckBoxPreference
                             android:key="notification_peek"
