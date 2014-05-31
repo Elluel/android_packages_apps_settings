@@ -65,11 +65,6 @@
                             android:title="@string/lockscreen_see_through_title"
                             android:summary="@string/lockscreen_see_through_summary"
                             android:persistent="false" />
-
-                    <PreferenceScreen
-                            android:key="keyguard_style"
-                            android:fragment="com.android.settings.rascarlo.LockscreenStyle"
-                            android:title="@string/lockscreen_style_title"/>
             </PreferenceScreen>
     </PreferenceCategory>
 
