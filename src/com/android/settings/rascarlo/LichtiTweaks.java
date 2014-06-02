@@ -151,9 +151,9 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             mPeekWakeTimeout.setSummary(mPeekWakeTimeout.getEntries()[index]);
             return true;
         } else if (preference == mSeeThrough) {
-            boolean objValue = (Boolean) value;
+            boolean value = (Boolean) objValue;
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.LOCKSCREEN_SEE_THROUGH, objValue ? 1 : 0);
+                    Settings.System.LOCKSCREEN_SEE_THROUGH, value ? 1 : 0);
             return true;
         } else if (preference == mBlurRadius) {
             Settings.System.putInt(getActivity().getContentResolver(),
