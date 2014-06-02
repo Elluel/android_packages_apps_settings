@@ -37,6 +37,8 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
+import com.android.settings.rascarlo.SeekBarPreference;
+
 public class LichtiTweaks extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
     private static final String TAG = "LichtiTweaks";
@@ -48,6 +50,7 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     // Lockscreen Tweaks
     private static final String KEY_ENABLE_POWER_MENU = "lockscreen_enable_power_menu";
     private static final String KEY_SEE_THROUGH = "lockscreen_see_through";
+    private static final String KEY_BLUR_RADIUS = "lockscreen_blur_radius";
 
     // Peek
     private CheckBoxPreference mNotificationPeek;
@@ -56,6 +59,7 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     // Lockscreen Tweaks
     private CheckBoxPreference mEnablePowerMenu;
     private CheckBoxPreference mSeeThrough;
+    private SeekBarPreference mBlurRadius;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,12 +99,20 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
                 .getApplicationContext().getContentResolver(),
                 Settings.System.LOCKSCREEN_ENABLE_POWER_MENU, 1) == 1);
 
-        // Lockscreen Blur
+        // Lockscreen see through
         mSeeThrough = (CheckBoxPreference) getPreferenceScreen()
                 .findPreference(KEY_SEE_THROUGH);
-        mSeeThrough.setChecked(Settings.System.getInt(getActivity()
-                .getApplicationContext().getContentResolver(),
-                Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1);
+        if (mSeeThrough != null) {
+            mSeeThrough.setChecked(Settings.System.getInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1);
+            mSeeThrough.setOnPreferenceChangeListener(this);
+        }
+
+        // Lockscreen Blur
+        mBlurRadius = (SeekBarPreference) findPreference(KEY_BLUR_RADIUS);
+        mBlurRadius.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_BLUR_RADIUS, 12));
+        mBlurRadius.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -128,6 +140,15 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
                     Settings.System.PEEK_WAKE_TIMEOUT, peekWakeTimeout);
             mPeekWakeTimeout.setSummary(mPeekWakeTimeout.getEntries()[index]);
             return true;
+        } else if (preference == mSeeThrough) {
+            boolean objValue = (Boolean) value;
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_SEE_THROUGH, objValue ? 1 : 0);
+            return true;
+        } else if (preference == mBlurRadius) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.LOCKSCREEN_BLUR_RADIUS, (Integer) objValue);
+            return true;
         }
         return false;
     }
@@ -144,11 +165,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             value = mEnablePowerMenu.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.LOCKSCREEN_ENABLE_POWER_MENU, value ? 1 : 0);
-            return true;
-        } else if (preference == mSeeThrough) {
-            value = mSeeThrough.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.LOCKSCREEN_SEE_THROUGH, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
