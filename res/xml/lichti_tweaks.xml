@@ -76,6 +76,11 @@
                             settings:unitsRight=""
                             android:dependency="lockscreen_see_through"
                             android:persistent="false" />
+
+                    <CheckBoxPreference
+                            android:key="battery_around_lockscreen_ring"
+                            android:title="@string/battery_around_lockscreen_ring"
+                            android:persistent="false"/>
             </PreferenceScreen>
     </PreferenceCategory>
 

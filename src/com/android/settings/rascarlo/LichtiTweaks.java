@@ -51,6 +51,7 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private static final String KEY_ENABLE_POWER_MENU = "lockscreen_enable_power_menu";
     private static final String KEY_SEE_THROUGH = "lockscreen_see_through";
     private static final String KEY_BLUR_RADIUS = "lockscreen_blur_radius";
+    private static final String BATTERY_AROUND_LOCKSCREEN_RING = "battery_around_lockscreen_ring";
 
     // Peek
     private CheckBoxPreference mNotificationPeek;
@@ -60,6 +61,7 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private CheckBoxPreference mEnablePowerMenu;
     private CheckBoxPreference mSeeThrough;
     private SeekBarPreference mBlurRadius;
+    private CheckBoxPreference mLockRingBattery;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,14 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
         mBlurRadius.setValue(Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_BLUR_RADIUS, 12));
         mBlurRadius.setOnPreferenceChangeListener(this);
+
+        // Battery around unlockring
+        mLockRingBattery = (CheckBoxPreference) getPreferenceScreen()
+                .findPreference(BATTERY_AROUND_LOCKSCREEN_RING);
+        if (mLockRingBattery != null) {
+            mLockRingBattery.setChecked(Settings.System.getInt(getContentResolver(),
+                    Settings.System.BATTERY_AROUND_LOCKSCREEN_RING, 0) == 1);
+        }
     }
 
     @Override
@@ -165,6 +175,11 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             value = mEnablePowerMenu.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.LOCKSCREEN_ENABLE_POWER_MENU, value ? 1 : 0);
+            return true;
+        } else if (preference == mLockRingBattery) {
+            value = mLockRingBattery.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.BATTERY_AROUND_LOCKSCREEN_RING, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

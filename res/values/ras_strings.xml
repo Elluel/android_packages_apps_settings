@@ -339,6 +339,8 @@
     <!-- Lockscreen blur -->
     <string name="blur_radius_title">Blur content</string>
     <string name="blur_radius_summary">Intensity for the blur effect</string>
+    <!-- Lockscreen battery around unlock ring -->
+    <string name="battery_around_lockscreen_ring">Battery around unlock ring</string>
 
     <!-- Double-tap to sleep -->
     <string name="double_tap_sleep_title">Double-tap to sleep</string>
