@@ -408,4 +408,15 @@
     <string name="app_circle_bar_summary">Show app launcher after touching right side of screen</string>
     <string name="app_circle_bar_included_apps_title">Included apps</string>
     <string name="app_circle_bar_included_apps_summary">Apps will show in app sidebar</string>
+
+    <!-- NavBar long press actions -->
+    <string name="navbar_long_press_title">Long press actions</string>
+    <string name="recent_long_press_title">Recent long press actions</string>
+    <string name="recent_long_press_none">None</string>
+    <string name="recent_long_press_last_app">Last app</string>
+    <string name="recent_long_press_screenshot">Screenshot</string>
+    <string name="recent_long_press_kill_app">Kill app</string>
+    <string name="recent_long_press_notif_panel">Notifications panel</string>
+    <string name="recent_long_press_qs_panel">QS panel</string>
+    <string name="recent_long_press_power_menu">Power menu</string>
 </resources>

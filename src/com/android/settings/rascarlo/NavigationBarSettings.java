@@ -5,13 +5,15 @@ import android.content.ContentResolver;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.Settings;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
+import com.android.settings.Utils;
+
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class NavigationBarSettings extends SettingsPreferenceFragment implements
@@ -65,5 +67,11 @@ OnPreferenceChangeListener {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 }
