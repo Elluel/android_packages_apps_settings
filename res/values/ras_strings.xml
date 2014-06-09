@@ -2,7 +2,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- About phone screen, build date of ROM -->
-    <string name="build_date">rastakat build date</string>
+    <string name="build_date">rastakat lichti1901 build date</string>
     <string name="build_date_default">2012-01-01-0000</string>
 
     <!-- Generic strings -->
