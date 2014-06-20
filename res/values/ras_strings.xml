@@ -377,7 +377,7 @@
 
     <!-- Rasta Notifications -->
     <string name="ras_notification_category">Rasta Notifications</string>
-    <string name="ras_notification_title">Notifications</string>
+    <string name="ras_notification_title">Peek</string>
     <string name="ras_notification_summary">Peek Settings</string>
     <!-- Notification peek-->
     <string name="notification_peek_title">Notification peek</string>
@@ -396,6 +396,12 @@
     <string name="peek_wake_10seconds">10 seconds</string>
     <string name="peek_wake_20seconds">20 seconds</string>
     <string name="peek_wake_30seconds">30 seconds</string>
+    <!-- Heads Up -->
+    <string name="category_heads_up">Heads up</string>
+    <string name="heads_up_summary">Heads up settings</string>
+    <string name="title_heads_up_enabled">Enable heads up</string>
+    <string name="add_heads_up_dnd_package">Add app to \'Do not disturb\'</string>
+    <string name="heads_up_dnd_title">Do not disturb</string>
 
     <!-- Sizes for pattern lockscreen -->
     <string name="lock_pattern_size_3">3x3</string>

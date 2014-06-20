@@ -31,6 +31,12 @@
                             android:entryValues="@array/peek_wake_timeout_values"
                             android:dependency="notification_peek" />
             </PreferenceScreen>
+
+            <PreferenceScreen
+                    android:key="heads_up"
+                    android:fragment="com.android.settings.headsup.HeadsUpDoNotDisturbSettings"
+                    android:title="@string/category_heads_up" 
+                    android:summary="@string/heads_up_summary" />
     </PreferenceCategory>
 
     <!-- Appcircle Sidebar -->
