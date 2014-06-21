@@ -6,7 +6,8 @@
     <PreferenceScreen
             android:fragment="com.android.settings.rascarlo.StatusBarClockStyle"
             android:key="clock_style_pref"
-            android:title="@string/status_bar_clock" />
+            android:title="@string/status_bar_clock" 
+            android:summary="@string/status_bar_clock_summary" />
 
     <PreferenceScreen
             android:key="battery_icon"
@@ -41,7 +42,8 @@
 
     <PreferenceScreen
             android:key="category_network_traffic"
-            android:title="@string/network_traffic_title">
+            android:title="@string/network_traffic_title"
+            android:summary="@string/network_traffic_summary">
 
         <ListPreference
                 android:key="network_traffic_state"
