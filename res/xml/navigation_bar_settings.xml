@@ -25,7 +25,6 @@
             android:persistent="false" />
 
         <ListPreference
-            android:fragment="com.android.settings.rascarlo.NavBarLongPressActions"
             android:key="recent_long_press"
             android:defaultValue="1"
             android:title="@string/recent_long_press_title"
