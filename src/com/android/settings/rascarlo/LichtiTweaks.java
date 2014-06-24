@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.RemoteException;
+import android.os.UserHandle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -38,6 +39,7 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
 import com.android.settings.rascarlo.SeekBarPreference;
+import com.android.settings.rascarlo.SystemSettingSwitchPreference;
 
 public class LichtiTweaks extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
@@ -62,6 +64,9 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private CheckBoxPreference mSeeThrough;
     private SeekBarPreference mBlurRadius;
     private CheckBoxPreference mLockRingBattery;
+
+    // Heads up
+    private SystemSettingSwitchPreference mSwitchPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,11 +128,19 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             mLockRingBattery.setChecked(Settings.System.getInt(getContentResolver(),
                     Settings.System.BATTERY_AROUND_LOCKSCREEN_RING, 0) == 1);
         }
+
+        // Heads up
+        mSwitchPreference = (SystemSettingSwitchPreference)
+                findPreference(Settings.System.HEADS_UP_NOTIFICATION);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        boolean headsUpEnabled = Settings.System.getIntForUser(
+                getActivity().getContentResolver(),
+                Settings.System.HEADS_UP_NOTIFICATION, 0, UserHandle.USER_CURRENT) == 1;
+        mSwitchPreference.setChecked(headsUpEnabled);
     }
 
     @Override
