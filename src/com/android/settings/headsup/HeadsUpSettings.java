@@ -38,8 +38,8 @@ import android.widget.Switch;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.cyanogenmod.PackageListAdapter;
-import com.android.settings.cyanogenmod.PackageListAdapter.PackageItem;
+import com.android.settings.rascarlo.PackageListAdapter;
+import com.android.settings.rascarlo.PackageListAdapter.PackageItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
