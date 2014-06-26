@@ -39,7 +39,6 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
 import com.android.settings.rascarlo.SeekBarPreference;
-import com.android.settings.rascarlo.SystemSettingSwitchPreference;
 
 public class LichtiTweaks extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
@@ -66,7 +65,7 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private CheckBoxPreference mLockRingBattery;
 
     // Heads up
-    private SystemSettingSwitchPreference mSwitchPreference;
+    private Preference mHeadsUp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,17 +129,16 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
         }
 
         // Heads up
-        mSwitchPreference = (SystemSettingSwitchPreference)
-                findPreference(Settings.System.HEADS_UP_NOTIFICATION);
+        mHeadsUp = findPreference(Settings.System.HEADS_UP_NOTIFICATION);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        boolean headsUpEnabled = Settings.System.getIntForUser(
-                getActivity().getContentResolver(),
-                Settings.System.HEADS_UP_NOTIFICATION, 0, UserHandle.USER_CURRENT) == 1;
-        mSwitchPreference.setChecked(headsUpEnabled);
+        boolean headsUpEnabled = Settings.System.getInt(
+                getContentResolver(), Settings.System.HEADS_UP_NOTIFICATION, 0) == 1;
+        mHeadsUp.setSummary(headsUpEnabled
+                ? R.string.summary_heads_up_enabled : R.string.summary_heads_up_disabled);
     }
 
     @Override
