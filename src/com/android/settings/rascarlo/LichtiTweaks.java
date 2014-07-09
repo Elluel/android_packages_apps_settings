@@ -45,9 +45,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
 
     private static final String TAG = "LichtiTweaks";
 
-    // Peek
-    private static final String KEY_PEEK = "notification_peek";
-    private static final String KEY_PEEK_PICKUP_TIMEOUT = "peek_pickup_timeout";
     // Lockscreen Tweaks
     private static final String KEY_ENABLE_POWER_MENU = "lockscreen_enable_power_menu";
     private static final String KEY_SEE_THROUGH = "lockscreen_see_through";
@@ -66,9 +63,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private static final String PREF_HEADS_UP_SHOW_UPDATE =
             "heads_up_show_update";
 
-    // Peek
-    private CheckBoxPreference mNotificationPeek;
-    private ListPreference mPeekPickupTimeout;
     // Lockscreen Tweaks
     private CheckBoxPreference mEnablePowerMenu;
     private CheckBoxPreference mSeeThrough;
@@ -87,22 +81,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
         addPreferencesFromResource(R.xml.lichti_tweaks);
 
         PackageManager pm = getPackageManager();
-
-        // Peek
-        mNotificationPeek = (CheckBoxPreference) getPreferenceScreen() 
-                .findPreference(KEY_PEEK);
-        mNotificationPeek.setChecked((Settings.System.getInt(getActivity()
-                .getApplicationContext().getContentResolver(),
-                Settings.System.PEEK_STATE, 0) == 1));
-
-        // Peek pickup timeout
-        mPeekPickupTimeout = (ListPreference) getPreferenceScreen()
-                .findPreference(KEY_PEEK_PICKUP_TIMEOUT);
-        int peekTimeout = Settings.System.getInt(getContentResolver(),
-                Settings.System.PEEK_PICKUP_TIMEOUT, 10000);
-        mPeekPickupTimeout.setValue(String.valueOf(peekTimeout));
-        mPeekPickupTimeout.setSummary(mPeekPickupTimeout.getEntry());
-        mPeekPickupTimeout.setOnPreferenceChangeListener(this);
 
         // Enable / disable power menu on lockscreen
         mEnablePowerMenu = (CheckBoxPreference) getPreferenceScreen()
@@ -180,14 +158,7 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (preference == mPeekPickupTimeout) {
-            int index = mPeekPickupTimeout.findIndexOfValue((String) objValue);
-            int peekTimeout = Integer.valueOf((String) objValue);
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.PEEK_PICKUP_TIMEOUT, peekTimeout);
-            mPeekPickupTimeout.setSummary(mPeekPickupTimeout.getEntries()[index]);
-            return true;
-        } else if (preference == mSeeThrough) {
+        if (preference == mSeeThrough) {
             boolean value = (Boolean) objValue;
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKSCREEN_SEE_THROUGH, value ? 1 : 0);
@@ -245,12 +216,7 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         boolean value;
-        if (preference == mNotificationPeek) {
-            value = mNotificationPeek.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(), 
-                    Settings.System.PEEK_STATE, value ? 1 : 0);
-            return true;
-        } else if (preference == mEnablePowerMenu) {
+        if (preference == mEnablePowerMenu) {
             value = mEnablePowerMenu.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.LOCKSCREEN_ENABLE_POWER_MENU, value ? 1 : 0);

@@ -379,15 +379,6 @@
     <string name="ras_notification_category">Rasta Notifications</string>
     <string name="ras_notification_title">Notifications</string>
     <string name="ras_notification_summary">Peek Settings</string>
-    <!-- Notification peek-->
-    <string name="notification_peek_title">Notification peek</string>
-    <string name="notification_peek_summary">Show latest notification after picking up your device</string>
-    <string name="peek_pickup_timeout_title">Peek pickup timeout</string>
-    <string name="peek_pickup_10seconds">10 seconds (default)</string>
-    <string name="peek_pickup_30seconds">30 seconds</string>
-    <string name="peek_pickup_45seconds">45 seconds</string>
-    <string name="peek_pickup_60seconds">1 minute</string>
-    <string name="peek_pickup_120seconds">2 minutes</string>
 
     <!-- Sizes for pattern lockscreen -->
     <string name="lock_pattern_size_3">3x3</string>

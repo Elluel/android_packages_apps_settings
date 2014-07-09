@@ -3,27 +3,9 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/lichti_tweaks_title" >
 
-    <!-- Notification PEEK -->
+    <!-- Notifications -->
     <PreferenceCategory
             android:title="@string/ras_notification_category">
-
-            <PreferenceScreen
-                    android:key="ras_notification_category"
-                    android:title="@string/ras_notification_title"
-                    android:summary="@string/ras_notification_summary">
-
-                    <CheckBoxPreference
-                            android:key="notification_peek"
-                            android:title="@string/notification_peek_title"
-                            android:summary="@string/notification_peek_summary" />
-
-                    <ListPreference
-                            android:key="peek_pickup_timeout"
-                            android:title="@string/peek_pickup_timeout_title"
-                            android:entries="@array/peek_pickup_timeout_entries"
-                            android:entryValues="@array/peek_pickup_timeout_values"
-                            android:dependency="notification_peek" />
-            </PreferenceScreen>
 
             <PreferenceScreen
                     android:title="@string/heads_up_title"
