@@ -56,6 +56,8 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
 
     private static final String PREF_HEADS_UP_EXPANDED =
             "heads_up_expanded";
+    private static final String PREF_HEADS_UP_GRAVITY =
+            "heads_up_gravity";
     private static final String PREF_HEADS_UP_SNOOZE_TIME =
             "heads_up_snooze_time";
     private static final String PREF_HEADS_UP_TIME_OUT =
@@ -73,6 +75,7 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private ListPreference mHeadsUpTimeOut;
     private CheckBoxPreference mHeadsUpExpanded;
     private CheckBoxPreference mHeadsUpShowUpdates;
+    private CheckBoxPreference mHeadsUpGravity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,6 +125,11 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
         mHeadsUpShowUpdates.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.HEADS_UP_SHOW_UPDATE, 0) == 1);
         mHeadsUpShowUpdates.setOnPreferenceChangeListener(this);
+
+        mHeadsUpGravity = (CheckBoxPreference) findPreference(PREF_HEADS_UP_GRAVITY);
+        mHeadsUpGravity.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.HEADS_UP_GRAVITY_BOTTOM, 0) == 1);
+        mHeadsUpGravity.setOnPreferenceChangeListener(this);
 
         mHeadsUpSnoozeTime = (ListPreference) findPreference(PREF_HEADS_UP_SNOOZE_TIME);
         mHeadsUpSnoozeTime.setOnPreferenceChangeListener(this);
@@ -190,6 +198,11 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             boolean value = (Boolean) objValue;
             Settings.System.putInt(getContentResolver(),
                     Settings.System.HEADS_UP_SHOW_UPDATE, value ? 1 : 0);
+            return true;
+        } else if (preference == mHeadsUpGravity) {
+            boolean value = (Boolean) objValue;
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.HEADS_UP_GRAVITY_BOTTOM, value ? 1 : 0);
             return true;
         }
         return false;
