@@ -65,6 +65,10 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private static final String PREF_HEADS_UP_SHOW_UPDATE =
             "heads_up_show_update";
 
+    // Kernel Tweaks
+    private static final String KEY_TOUCH_CONTROL_SETTINGS = "touch_control_settings";
+    private static final String KEY_TOUCH_CONTROL_PACKAGE_NAME = "com.mahdi.touchcontrol";
+
     // Lockscreen Tweaks
     private CheckBoxPreference mEnablePowerMenu;
     private CheckBoxPreference mSeeThrough;
@@ -76,6 +80,8 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private CheckBoxPreference mHeadsUpExpanded;
     private CheckBoxPreference mHeadsUpShowUpdates;
     private CheckBoxPreference mHeadsUpGravity;
+    // Kernel Tweaks
+    private PreferenceScreen mTouchControl;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -153,6 +159,12 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
                 Settings.System.HEADS_UP_NOTIFCATION_DECAY, defaultTimeOut);
         mHeadsUpTimeOut.setValue(String.valueOf(headsUpTimeOut));
         updateHeadsUpTimeOutSummary(headsUpTimeOut);
+
+        // Kernel Tweaks
+        mTouchControl = (PreferenceScreen) findPreference(KEY_TOUCH_CONTROL_SETTINGS);
+        if (!Utils.isPackageInstalled(getActivity(), KEY_TOUCH_CONTROL_PACKAGE_NAME)) {
+                getPreferenceScreen().removePreference(mTouchControl);
+        }
     }
 
     @Override
