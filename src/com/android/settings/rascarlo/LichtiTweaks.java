@@ -33,6 +33,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.settings.R;
@@ -40,6 +41,7 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
 import com.android.settings.rascarlo.SeekBarPreference;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class LichtiTweaks extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
@@ -69,6 +71,11 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private static final String KEY_TOUCH_CONTROL_SETTINGS = "touch_control_settings";
     private static final String KEY_TOUCH_CONTROL_PACKAGE_NAME = "com.mahdi.touchcontrol";
 
+    // Miui style carrier in statusbar
+    private static final String STATUS_BAR_CARRIER = "status_bar_carrier";
+    private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
+    static final int DEFAULT_STATUS_CARRIER_COLOR = 0xffffffff;
+
     // Lockscreen Tweaks
     private CheckBoxPreference mEnablePowerMenu;
     private CheckBoxPreference mSeeThrough;
@@ -82,6 +89,9 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private CheckBoxPreference mHeadsUpGravity;
     // Kernel Tweaks
     private PreferenceScreen mTouchControl;
+    // Miui style carrier in statusbar
+    private CheckBoxPreference mStatusBarCarrier;
+    private ColorPickerPreference mCarrierColorPicker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,6 +100,9 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
         addPreferencesFromResource(R.xml.lichti_tweaks);
 
         PackageManager pm = getPackageManager();
+
+        int intColor;
+        String hexColor;
 
         // Enable / disable power menu on lockscreen
         mEnablePowerMenu = (CheckBoxPreference) getPreferenceScreen()
@@ -165,6 +178,19 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
         if (!Utils.isPackageInstalled(getActivity(), KEY_TOUCH_CONTROL_PACKAGE_NAME)) {
                 getPreferenceScreen().removePreference(mTouchControl);
         }
+
+        // MIUI-like carrier Label
+        mStatusBarCarrier = (CheckBoxPreference) findPreference(STATUS_BAR_CARRIER);
+        mStatusBarCarrier.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_CARRIER, 0) == 1));
+        // MIUI-like carrier Label color
+        mCarrierColorPicker = (ColorPickerPreference) findPreference(STATUS_BAR_CARRIER_COLOR);
+        mCarrierColorPicker.setOnPreferenceChangeListener(this);
+        intColor = Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_CARRIER_COLOR, DEFAULT_STATUS_CARRIER_COLOR);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mCarrierColorPicker.setSummary(hexColor);
+        mCarrierColorPicker.setNewPreviewColor(intColor);
     }
 
     @Override
@@ -216,6 +242,13 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             Settings.System.putInt(getContentResolver(),
                     Settings.System.HEADS_UP_GRAVITY_BOTTOM, value ? 1 : 0);
             return true;
+        } else if (preference == mCarrierColorPicker) {
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_CARRIER_COLOR, intHex);
+            return true;
         }
         return false;
     }
@@ -250,6 +283,11 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             value = mLockRingBattery.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.BATTERY_AROUND_LOCKSCREEN_RING, value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarCarrier) {
+            value mStatusBarCarrier.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_CARRIER, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

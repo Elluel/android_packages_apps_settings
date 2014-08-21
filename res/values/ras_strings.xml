@@ -438,4 +438,11 @@
     <string name="touch_control_settings_title">Advanced</string>
     <string name="touch_control_settings_summary">Manage advance wakeup option including double tap to wake and more</string>
 
+    <!-- Miui style provider in statusbar -->
+    <string name="status_bar_carrier_category">Rasta Carrier</string>
+    <string name="ras_carrier_title">Statusbar carrier</string>
+    <string name="ras_carrier_summary">Enable/disable statusbar carrier </string>
+    <string name="show_status_bar_carrier_title">MIUI-like carrier label</string>
+    <string name="show_status_bar_carrier_summary">Shows carrier label in status bar</string>
+    <string name="status_bar_carrier_color">MIUI-like carrier label Color</string>
 </resources>
