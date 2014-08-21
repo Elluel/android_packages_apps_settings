@@ -99,17 +99,6 @@
             </PreferenceScreen>
     </PreferenceCategory>
 
-    <!-- Over scroll effects -->
-    <PreferenceCategory
-            android:title="@string/ras_overscroll_category">
-
-            <PreferenceScreen
-                    android:key="overscroll_effects"
-                    android:title="@string/ui_overscroll_title"
-                    android:summary="@string/overscroll_weight_summary"
-                    android:fragment="com.android.settings.rascarlo.OverscrollEffects" />
-    </PreferenceCategory>
-
     <!-- Privacy Guard and Wakelockblocker -->
     <PreferenceCategory
             android:title="@string/ras_security_category">
