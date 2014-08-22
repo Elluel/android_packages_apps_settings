@@ -243,7 +243,7 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
                     Settings.System.HEADS_UP_GRAVITY_BOTTOM, value ? 1 : 0);
             return true;
         } else if (preference == mCarrierColorPicker) {
-            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(objValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
@@ -285,7 +285,7 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
                     Settings.System.BATTERY_AROUND_LOCKSCREEN_RING, value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarCarrier) {
-            value mStatusBarCarrier.isChecked();
+            value = mStatusBarCarrier.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_CARRIER, value ? 1 : 0);
             return true;
