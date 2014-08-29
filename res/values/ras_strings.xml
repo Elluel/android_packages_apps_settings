@@ -433,11 +433,6 @@
     <string name="heads_up_time_out_never">Never</string>
     <string name="heads_up_switch_label">Enable heads up notification</string>
 
-    <!-- Touch control -->
-    <string name="ras_touchcontrol_category">Rasta Kernel Tweaks</string>
-    <string name="touch_control_settings_title">Advanced</string>
-    <string name="touch_control_settings_summary">Manage advance wakeup option including double tap to wake and more</string>
-
     <!-- Custom carrier label -->
     <string name="notification_carrier_label_title">Carrier label</string>
     <string name="notification_custom_carrier_label_title">Custom carrier label</string>
@@ -518,4 +513,5 @@
 
     <!-- Summary for "Configure lockscreen" when security gesture is enabled [CHAR LIMIT=45] -->
     <string name="unlock_set_unlock_mode_gesture">Gesture</string>
+
 </resources>

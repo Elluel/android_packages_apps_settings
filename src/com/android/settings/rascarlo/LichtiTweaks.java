@@ -67,10 +67,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private static final String PREF_HEADS_UP_SHOW_UPDATE =
             "heads_up_show_update";
 
-    // Kernel Tweaks
-    private static final String KEY_TOUCH_CONTROL_SETTINGS = "touch_control_settings";
-    private static final String KEY_TOUCH_CONTROL_PACKAGE_NAME = "com.mahdi.touchcontrol";
-
     // Miui style carrier in statusbar
     private static final String STATUS_BAR_CARRIER = "status_bar_carrier";
     private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
@@ -87,8 +83,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private CheckBoxPreference mHeadsUpExpanded;
     private CheckBoxPreference mHeadsUpShowUpdates;
     private CheckBoxPreference mHeadsUpGravity;
-    // Kernel Tweaks
-    private PreferenceScreen mTouchControl;
     // Miui style carrier in statusbar
     private CheckBoxPreference mStatusBarCarrier;
     private ColorPickerPreference mCarrierColorPicker;
@@ -172,12 +166,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
                 Settings.System.HEADS_UP_NOTIFCATION_DECAY, defaultTimeOut);
         mHeadsUpTimeOut.setValue(String.valueOf(headsUpTimeOut));
         updateHeadsUpTimeOutSummary(headsUpTimeOut);
-
-        // Kernel Tweaks
-        mTouchControl = (PreferenceScreen) findPreference(KEY_TOUCH_CONTROL_SETTINGS);
-        if (!Utils.isPackageInstalled(getActivity(), KEY_TOUCH_CONTROL_PACKAGE_NAME)) {
-                getPreferenceScreen().removePreference(mTouchControl);
-        }
 
         // MIUI-like carrier Label
         mStatusBarCarrier = (CheckBoxPreference) findPreference(STATUS_BAR_CARRIER);
