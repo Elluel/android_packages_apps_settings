@@ -53,20 +53,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private static final String KEY_BLUR_RADIUS = "lockscreen_blur_radius";
     private static final String BATTERY_AROUND_LOCKSCREEN_RING = "battery_around_lockscreen_ring";
 
-    // Default timeout for heads up snooze. 5 minutes.
-    protected static final int DEFAULT_TIME_HEADS_UP_SNOOZE = 300000;
-
-    private static final String PREF_HEADS_UP_EXPANDED =
-            "heads_up_expanded";
-    private static final String PREF_HEADS_UP_GRAVITY =
-            "heads_up_gravity";
-    private static final String PREF_HEADS_UP_SNOOZE_TIME =
-            "heads_up_snooze_time";
-    private static final String PREF_HEADS_UP_TIME_OUT =
-            "heads_up_time_out";
-    private static final String PREF_HEADS_UP_SHOW_UPDATE =
-            "heads_up_show_update";
-
     // Miui style carrier in statusbar
     private static final String STATUS_BAR_CARRIER = "status_bar_carrier";
     private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
@@ -77,12 +63,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private CheckBoxPreference mSeeThrough;
     private SeekBarPreference mBlurRadius;
     private CheckBoxPreference mLockRingBattery;
-    // Heads up
-    private ListPreference mHeadsUpSnoozeTime;
-    private ListPreference mHeadsUpTimeOut;
-    private CheckBoxPreference mHeadsUpExpanded;
-    private CheckBoxPreference mHeadsUpShowUpdates;
-    private CheckBoxPreference mHeadsUpGravity;
     // Miui style carrier in statusbar
     private CheckBoxPreference mStatusBarCarrier;
     private ColorPickerPreference mCarrierColorPicker;
@@ -128,45 +108,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
                     Settings.System.BATTERY_AROUND_LOCKSCREEN_RING, 0) == 1);
         }
 
-        // Heads up
-        mHeadsUpExpanded = (CheckBoxPreference) findPreference(PREF_HEADS_UP_EXPANDED);
-        mHeadsUpExpanded.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.HEADS_UP_EXPANDED, 0) == 1);
-        mHeadsUpExpanded.setOnPreferenceChangeListener(this);
-
-        mHeadsUpShowUpdates = (CheckBoxPreference) findPreference(PREF_HEADS_UP_SHOW_UPDATE);
-        mHeadsUpShowUpdates.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.HEADS_UP_SHOW_UPDATE, 0) == 1);
-        mHeadsUpShowUpdates.setOnPreferenceChangeListener(this);
-
-        mHeadsUpGravity = (CheckBoxPreference) findPreference(PREF_HEADS_UP_GRAVITY);
-        mHeadsUpGravity.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.HEADS_UP_GRAVITY_BOTTOM, 0) == 1);
-        mHeadsUpGravity.setOnPreferenceChangeListener(this);
-
-        mHeadsUpSnoozeTime = (ListPreference) findPreference(PREF_HEADS_UP_SNOOZE_TIME);
-        mHeadsUpSnoozeTime.setOnPreferenceChangeListener(this);
-        int headsUpSnoozeTime = Settings.System.getInt(getContentResolver(),
-                Settings.System.HEADS_UP_SNOOZE_TIME, DEFAULT_TIME_HEADS_UP_SNOOZE);
-        mHeadsUpSnoozeTime.setValue(String.valueOf(headsUpSnoozeTime));
-        updateHeadsUpSnoozeTimeSummary(headsUpSnoozeTime);
-
-        Resources systemUiResources;
-        try {
-            systemUiResources = pm.getResourcesForApplication("com.android.systemui");
-        } catch (Exception e) {
-            return;
-        }
-
-        int defaultTimeOut = systemUiResources.getInteger(systemUiResources.getIdentifier(
-                    "com.android.systemui:integer/heads_up_notification_decay", null, null));
-        mHeadsUpTimeOut = (ListPreference) findPreference(PREF_HEADS_UP_TIME_OUT);
-        mHeadsUpTimeOut.setOnPreferenceChangeListener(this);
-        int headsUpTimeOut = Settings.System.getInt(getContentResolver(),
-                Settings.System.HEADS_UP_NOTIFCATION_DECAY, defaultTimeOut);
-        mHeadsUpTimeOut.setValue(String.valueOf(headsUpTimeOut));
-        updateHeadsUpTimeOutSummary(headsUpTimeOut);
-
         // MIUI-like carrier Label
         mStatusBarCarrier = (CheckBoxPreference) findPreference(STATUS_BAR_CARRIER);
         mStatusBarCarrier.setChecked((Settings.System.getInt(getContentResolver(),
@@ -201,35 +142,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_BLUR_RADIUS, (Integer) objValue);
             return true;
-        } else if (preference == mHeadsUpSnoozeTime) {
-            int headsUpSnoozeTime = Integer.valueOf((String) objValue);
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.HEADS_UP_SNOOZE_TIME,
-                    headsUpSnoozeTime);
-            updateHeadsUpSnoozeTimeSummary(headsUpSnoozeTime);
-            return true;
-        } else if (preference == mHeadsUpTimeOut) {
-            int headsUpTimeOut = Integer.valueOf((String) objValue);
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.HEADS_UP_NOTIFCATION_DECAY,
-                    headsUpTimeOut);
-            updateHeadsUpTimeOutSummary(headsUpTimeOut);
-            return true;
-        } else if (preference == mHeadsUpExpanded) {
-            boolean value = (Boolean) objValue;
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.HEADS_UP_EXPANDED, value ? 1 : 0);
-            return true;
-        } else if (preference == mHeadsUpShowUpdates) {
-            boolean value = (Boolean) objValue;
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.HEADS_UP_SHOW_UPDATE, value ? 1 : 0);
-            return true;
-        } else if (preference == mHeadsUpGravity) {
-            boolean value = (Boolean) objValue;
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.HEADS_UP_GRAVITY_BOTTOM, value ? 1 : 0);
-            return true;
         } else if (preference == mCarrierColorPicker) {
             String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(objValue)));
             preference.setSummary(hex);
@@ -239,24 +151,6 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             return true;
         }
         return false;
-    }
-
-    private void updateHeadsUpSnoozeTimeSummary(int value) {
-        String summary = value != 0
-                ? getResources().getString(R.string.heads_up_snooze_summary, value / 60 / 1000)
-                : getResources().getString(R.string.heads_up_snooze_disabled_summary);
-        mHeadsUpSnoozeTime.setSummary(summary);
-    }
-
-    private void updateHeadsUpTimeOutSummary(int value) {
-        String summary = getResources().getString(R.string.heads_up_time_out_summary,
-                value / 1000);
-        if (value == 0) {
-            mHeadsUpTimeOut.setSummary(
-                    getResources().getString(R.string.heads_up_time_out_never_summary));
-        } else {
-            mHeadsUpTimeOut.setSummary(summary);
-        }
     }
 
     @Override

@@ -8,44 +8,11 @@
             android:title="@string/ras_notification_category">
 
             <PreferenceScreen
+                    android:fragment="com.android.settings.rascarlo.HeadsUp"
+                    android:key="heads_up"
                     android:title="@string/heads_up_title"
-                    android:summary="@string/heads_up_summary">
+                    android:summary="@string/heads_up_summary" />      
 
-                    <CheckBoxPreference
-                            android:key="heads_up_expanded"
-                            android:title="@string/heads_up_expanded_title"
-                            android:summary="@string/heads_up_expanded_summary"
-                            android:persistent="false"
-                            android:defaultValue="false" />
-
-                    <CheckBoxPreference
-                            android:key="heads_up_show_update"
-                            android:title="@string/heads_up_show_updates_title"
-                            android:summary="@string/heads_up_show_updates_summary"
-                            android:persistent="false"
-                            android:defaultValue="false" />
-
-                    <CheckBoxPreference
-                            android:key="heads_up_gravity"
-                            android:title="@string/heads_up_gravity_title"
-                            android:summary="@string/heads_up_gravity_summary"
-                            android:persistent="false"
-                            android:defaultValue="false" />
-
-                    <ListPreference
-                            android:key="heads_up_snooze_time"
-                            android:title="@string/heads_up_snooze_title"
-                            android:entries="@array/heads_up_snooze_entries"
-                            android:entryValues="@array/heads_up_snooze_values"
-                            android:persistent="false" />
-
-                    <ListPreference
-                            android:key="heads_up_time_out"
-                            android:title="@string/heads_up_time_out_title"
-                            android:entries="@array/heads_up_time_out_entries"
-                            android:entryValues="@array/heads_up_time_out_values"
-                            android:persistent="false" />
-            </PreferenceScreen>
     </PreferenceCategory>
 
     <!-- Appcircle Sidebar -->
