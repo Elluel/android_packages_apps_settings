@@ -27,12 +27,6 @@ OnPreferenceChangeListener {
     // General
     private static String STATUS_BAR_GENERAL_CATEGORY = "status_bar_general_category";
 
-    // Battery
-    private static final String STATUS_BAR_BATTERY = "status_bar_battery";
-    private static final String STATUS_BAR_BATTERY_SHOW_PERCENT = "status_bar_battery_show_percent";
-    private static final String STATUS_BAR_STYLE_HIDDEN = "4";
-    private static final String STATUS_BAR_STYLE_TEXT = "6";
-
     // Brightness control
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     // Network Traffic
@@ -45,9 +39,6 @@ OnPreferenceChangeListener {
 
     // General
     private PreferenceCategory mStatusBarGeneralCategory;
-    // Battery
-    private ListPreference mStatusBarBattery;
-    private CheckBoxPreference mStatusBarBatteryShowPercent;
     // Brightness control
     private CheckBoxPreference mStatusBarBrightnessControl;
     // Quick Settings
@@ -86,17 +77,6 @@ OnPreferenceChangeListener {
                     }
                 } catch (SettingNotFoundException e) {
             }
-
-            // Status bar battery
-	    mStatusBarBattery = (ListPreference) getPreferenceScreen().findPreference(STATUS_BAR_BATTERY);
-            int batteryStyle = Settings.System.getInt(getActivity().getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 0);
-            mStatusBarBattery.setValue(String.valueOf(batteryStyle));
-            mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
-            mStatusBarBattery.setOnPreferenceChangeListener(this);
-
-            mStatusBarBatteryShowPercent = (CheckBoxPreference) getPreferenceScreen().findPreference(STATUS_BAR_BATTERY_SHOW_PERCENT);
-            mStatusBarBatteryShowPercent.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                      Settings.System.STATUS_BAR_BATTERY_SHOW_PERCENT, 0) == 1));
 
             // Network Traffic
             mNetTrafficState = (ListPreference) getPreferenceScreen().findPreference(NETWORK_TRAFFIC_STATE);
@@ -184,12 +164,6 @@ OnPreferenceChangeListener {
                     Settings.System.QS_QUICK_PULLDOWN, quickPulldownValue);
             mQuickPulldown.setSummary(mQuickPulldown.getEntries()[quickPulldownIndex]);
             return true;
-        } else if (preference == mStatusBarBattery) {
-            int batteryStyle = Integer.valueOf((String) objValue);
-            int index = mStatusBarBattery.findIndexOfValue((String) objValue);
-            Settings.System.putInt(getActivity().getContentResolver(), Settings.System.STATUS_BAR_BATTERY, batteryStyle);
-            mStatusBarBattery.setSummary(mStatusBarBattery.getEntries()[index]);
-            return true;
         }
         return false;
     }
@@ -234,11 +208,5 @@ OnPreferenceChangeListener {
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
-    }
-
-    private void enableStatusBarBatteryDependents(String value) {
-    boolean enabled = !(value.equals(STATUS_BAR_STYLE_TEXT)
-            || value.equals(STATUS_BAR_STYLE_HIDDEN));
-    mStatusBarBatteryShowPercent.setEnabled(enabled);
     }
 }

@@ -364,17 +364,6 @@
     <string name="five">Five</string>
     <string name="six">Six</string>
 
-    <!-- StatusBar Battery Settings -->
-    <string name="battery_icon_title">Battery icon</string>
-    <string name="battery_icon_summary">View or change the battery style settings</string>
-    <string name="status_bar_battery_title">Battery status style</string>
-    <string name="status_bar_style_icon_portrait">Icon portrait</string>
-    <string name="status_bar_style_icon_landscape">Icon landscape</string>
-    <string name="status_bar_style_circle">Circle</string>
-    <string name="status_bar_style_text">Text</string>
-    <string name="status_bar_style_hidden">Hidden</string>
-    <string name="status_bar_battery_show_percent_title">Show battery status percent</string>
-
     <!-- Rasta Notifications -->
     <string name="ras_notification_category">Rasta Notifications</string>
     <string name="ras_notification_title">Notifications</string>
