@@ -31,6 +31,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
+import android.preference.PreferenceCategory;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.text.TextUtils;
@@ -58,6 +59,14 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
     static final int DEFAULT_STATUS_CARRIER_COLOR = 0xffffffff;
 
+    // Tinted statusbar
+    private static final String TINTED_STATUSBAR = "tinted_statusbar";
+    private static final String TINTED_STATUSBAR_OPTION = "tinted_statusbar_option";
+    private static final String TINTED_STATUSBAR_FILTER = "status_bar_tinted_filter";
+    private static final String TINTED_STATUSBAR_TRANSPARENT = "tinted_statusbar_transparent";
+    private static final String TINTED_NAVBAR_TRANSPARENT = "tinted_navbar_transparent";
+    private static final String CATEGORY_TINTED = "category_tinted_statusbar";
+
     // Lockscreen Tweaks
     private CheckBoxPreference mEnablePowerMenu;
     private CheckBoxPreference mSeeThrough;
@@ -66,6 +75,12 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
     // Miui style carrier in statusbar
     private CheckBoxPreference mStatusBarCarrier;
     private ColorPickerPreference mCarrierColorPicker;
+    // Tinted statusbar
+    private ListPreference mTintedStatusbar;
+    private ListPreference mTintedStatusbarOption;
+    private CheckBoxPreference mTintedStatusbarFilter;
+    private SeekBarPreference mTintedStatusbarTransparency;
+    private SeekBarPreference mTintedNavbarTransparency;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,6 +135,43 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mCarrierColorPicker.setSummary(hexColor);
         mCarrierColorPicker.setNewPreviewColor(intColor);
+
+        // Tinted statusbar
+        final PreferenceCategory tintedCategory = (PreferenceCategory) getPreferenceScreen()
+                .findPreference(CATEGORY_TINTED);
+
+        mTintedStatusbar = (ListPreference) findPreference(TINTED_STATUSBAR);
+        int tintedStatusbar = Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_TINTED_COLOR, 0);
+        mTintedStatusbar.setValue(String.valueOf(tintedStatusbar));
+        mTintedStatusbar.setSummary(mTintedStatusbar.getEntry());
+        mTintedStatusbar.setOnPreferenceChangeListener(this);
+
+        mTintedStatusbarFilter = (CheckBoxPreference) findPreference(TINTED_STATUSBAR_FILTER);
+        mTintedStatusbarFilter.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_TINTED_FILTER, 0) == 1));
+
+        mTintedStatusbarTransparency = (SeekBarPreference) findPreference(TINTED_STATUSBAR_TRANSPARENT);
+        mTintedStatusbarTransparency.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_TINTED_STATBAR_TRANSPARENT, 100));
+        mTintedStatusbarTransparency.setEnabled(tintedStatusbar != 0);
+        mTintedStatusbarTransparency.setOnPreferenceChangeListener(this);
+
+        mTintedStatusbarOption = (ListPreference) findPreference(TINTED_STATUSBAR_OPTION);
+        mTintedNavbarTransparency = (SeekBarPreference) findPreference(TINTED_NAVBAR_TRANSPARENT);
+
+        int tintedStatusbarOption = Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_TINTED_OPTION, 0);
+        mTintedStatusbarOption.setValue(String.valueOf(tintedStatusbarOption));
+        mTintedStatusbarOption.setSummary(mTintedStatusbarOption.getEntry());
+        mTintedStatusbarOption.setEnabled(tintedStatusbar != 0);
+        mTintedStatusbarOption.setOnPreferenceChangeListener(this);
+
+        mTintedNavbarTransparency.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_TINTED_NAVBAR_TRANSPARENT, 100));
+        mTintedNavbarTransparency.setEnabled(tintedStatusbar != 0);
+        mTintedNavbarTransparency.setOnPreferenceChangeListener(this);
+
     }
 
     @Override
@@ -149,6 +201,36 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_CARRIER_COLOR, intHex);
             return true;
+        } else if (preference == mTintedStatusbar) {
+            int val = Integer.parseInt((String) objValue);
+            int index = mTintedStatusbar.findIndexOfValue((String) objValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_TINTED_COLOR, val);
+            mTintedStatusbar.setSummary(mTintedStatusbar.getEntries()[index]);
+            if (mTintedStatusbarOption != null) {
+                mTintedStatusbarOption.setEnabled(val != 0);
+            }
+            mTintedStatusbarFilter.setEnabled(val != 0);
+            mTintedStatusbarTransparency.setEnabled(val != 0);
+            if (mTintedNavbarTransparency != null) {
+                mTintedNavbarTransparency.setEnabled(val != 0);
+            }
+        } else if (preference == mTintedStatusbarOption) {
+            int val = Integer.parseInt((String) objValue);
+            int index = mTintedStatusbarOption.findIndexOfValue((String) objValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_TINTED_OPTION, val);
+            mTintedStatusbarOption.setSummary(mTintedStatusbarOption.getEntries()[index]);
+        } else if (preference == mTintedStatusbarTransparency) {
+            int val = ((Integer)objValue).intValue();
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_TINTED_STATBAR_TRANSPARENT, val);
+            return true;
+        } else if (preference == mTintedNavbarTransparency) {
+            int val = ((Integer)objValue).intValue();
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_TINTED_NAVBAR_TRANSPARENT, val);
+            return true;
         }
         return false;
     }
@@ -170,6 +252,11 @@ public class LichtiTweaks extends SettingsPreferenceFragment implements OnPrefer
             value = mStatusBarCarrier.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_CARRIER, value ? 1 : 0);
+            return true;
+        } else if (preference == mTintedStatusbarFilter) {
+            value = mTintedStatusbarFilter.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_TINTED_FILTER, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

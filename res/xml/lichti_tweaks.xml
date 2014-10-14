@@ -3,6 +3,56 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/lichti_tweaks_title" >
 
+    <!-- Tinted statusbar and navbar-->
+    <PreferenceCategory
+            android:key="category_tinted_statusbar"
+            android:title="@string/tinted_statusbar_category">
+
+            <PreferenceScreen
+                    android:title="@string/tinted_statusbar_title"
+                    android:summary="@string/tinted_statusbar_summary">
+
+                    <ListPreference
+                            android:key="tinted_statusbar"
+                            android:title="@string/title_tinted_statusbar"
+                            android:entries="@array/tinted_statusbar_entries"
+                            android:entryValues="@array/tinted_statusbar_values"
+                            android:defaultValue="0"
+                            android:persistent="false" />
+
+                    <ListPreference
+                            android:key="tinted_statusbar_option"
+                            android:title="@string/title_tinted_statusbar_option"
+                            android:entries="@array/tinted_statusbar_option_entries"
+                            android:entryValues="@array/tinted_statusbar_values"
+                            android:defaultValue="0"
+                            android:persistent="false" />
+
+                    <CheckBoxPreference
+                            android:key="status_bar_tinted_filter"
+                            android:title="@string/tinted_statusbar_filter_title"
+                            android:summary="@string/tinted_statusbar_filter_summary" />
+
+                    <com.android.settings.rascarlo.SeekBarPreference
+                            android:key="tinted_statusbar_transparent"
+                            android:persistent="false"
+                            android:title="@string/tinted_statusbar_transparent_title"
+                            android:max="100"
+                            settings:min="0"
+                            settings:unitsLeft=""
+                            settings:unitsRight="%" />
+
+                    <com.android.settings.rascarlo.SeekBarPreference
+                            android:key="tinted_navbar_transparent"
+                            android:persistent="false"
+                            android:title="@string/tinted_navbar_transparent_title"
+                            android:max="100"
+                            settings:min="0"
+                            settings:unitsLeft=""
+                            settings:unitsRight="%" />
+            </PreferenceScreen>
+    </PreferenceCategory>
+
     <!-- Notifications -->
     <PreferenceCategory
             android:title="@string/ras_notification_category">
