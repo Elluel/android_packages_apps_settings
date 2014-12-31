@@ -456,4 +456,8 @@
 
     <!-- BitSyko Layers  -->
     <string name="bitsyko_layers">Layers</string>
+
+    <!-- QuickSettings collapse panel -->
+    <string name="quick_settings_collapse_title">Auto close panel</string>
+    <string name="quick_settings_collapse_summary">Close the quick settings panel upon toggle</string>
 </resources>
