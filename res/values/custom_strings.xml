@@ -482,4 +482,8 @@
     <string name="dialog_restart">Restart</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="custom_density_warning">Restart the system and apply selected density?</string>
+
+    <!-- Linked / unlinked notification volume -->
+    <string name="link_volume_option_title">Link ringtone &amp; notification volumes</string>
+    <string name="notification_volume_option_title">Notification volume</string>
 </resources>
