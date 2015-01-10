@@ -208,8 +208,8 @@ public class PrivacyGuardManager extends Fragment
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // on click change the privacy guard status for this item
+    public void onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        // on long click change the privacy guard status for this item
         final AppInfo app = (AppInfo) parent.getItemAtPosition(position);
         boolean enabled = app.privacyGuardState > AppOpsManager.PRIVACY_GUARD_DISABLED_PLUS;
 
@@ -223,8 +223,8 @@ public class PrivacyGuardManager extends Fragment
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        // on long click open app details window
+    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // on click open app details window
         final AppInfo app = (AppInfo) parent.getItemAtPosition(position);
         startAppOpsDetails(app.packageName);
         return true;
