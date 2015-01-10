@@ -389,7 +389,7 @@
 
     <!-- Wakelock blocker -->
     <string name="wakelock_blocker_title">Wakelock blocker</string>
-    <string name="wakelock_blocker_summary">Block system wakelocks</string>
+    <string name="wakelock_blocker_summary">Block unwanted wakelocks to prevent apps from waking the device when not necessary</string>
     <string name="wakelock_blocker_save">Save</string>
     <string name="wakelock_list_header">Available wakelocks</string>
     <string name="wakelock_blocker_reload">Reload</string>
