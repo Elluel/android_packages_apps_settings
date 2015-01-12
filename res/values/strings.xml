@@ -4364,9 +4364,9 @@
 
     <!-- Backup and reset Settings screen --><skip />
     <!-- Backup and reset settings menu title -->
-    <string name="privacy_settings">Backup &amp; reset</string>
+    <string name="privacy_settings">Backup &amp; restore</string>
     <!-- Privacy settings activity title -->
-    <string name="privacy_settings_title">Backup &amp; reset</string>
+    <string name="privacy_settings_title">Backup &amp; restore</string>
     <!-- Backup section title -->
     <string name="backup_section_title">Backup &amp; restore</string>
     <!-- Personal data section title -->
