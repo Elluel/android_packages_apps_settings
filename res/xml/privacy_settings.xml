@@ -46,13 +46,13 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:key="personal_data_category"
-            android:visible="false"
+            android:visibility="gone"
             android:title="@string/personal_data_section_title">
 
         <!-- Factory reset -->
         <PreferenceScreen
             android:title="@string/master_clear_title"
-            android:visible="false"
+            android:visibility="gone"
             android:summary="@string/master_clear_summary"
             settings:keywords="@string/keywords_factory_data_reset"
             android:fragment="com.android.settings.MasterClear" />
