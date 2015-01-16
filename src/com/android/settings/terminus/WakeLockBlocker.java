@@ -93,7 +93,7 @@ public class WakeLockBlocker extends SettingsPreferenceFragment {
                         if(checked){
                             check.setTextColor(getResources().getColor(android.R.color.holo_red_light));
                         } else {
-                            check.setTextColor(getResources().getColor(android.R.color.primary_text_dark));
+                            check.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                         }
                     }
             });
@@ -252,7 +252,7 @@ public class WakeLockBlocker extends SettingsPreferenceFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.add(0, MENU_RELOAD, 0, R.string.wakelock_blocker_reload)
-                .setIcon(R.drawable.ic_menu_refresh_holo_dark)
+                .setIcon(R.drawable.ic_menu_refresh)
                 .setAlphabeticShortcut('r')
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM |
                         MenuItem.SHOW_AS_ACTION_WITH_TEXT);
