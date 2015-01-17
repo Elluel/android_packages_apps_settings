@@ -390,6 +390,7 @@
     <string name="qs_main_tiles_summary_off">Three tiles on each row</string>
     <string name="qs_advanced_location_title">Advanced location quick settings</string>
     <string name="qs_advanced_location_summary">Enable advanced settings for location in quick settings</string>
+    <string name="display_rotation_title">Rotation</string>
 
     <!-- Notifications as heads-up -->
     <string name="zen_heads_up_toggle_title">Heads-up notifications</string>
