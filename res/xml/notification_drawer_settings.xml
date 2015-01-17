@@ -34,4 +34,10 @@
 
     </PreferenceCategory>
 
+    <com.android.settings.terminus.SystemSettingSwitchPreference
+        android:key="qs_location_advanced"
+        android:title="@string/qs_advanced_location_title"
+        android:summary="@string/qs_advanced_location_summary"
+        android:defaultValue="false" />
+
 </PreferenceScreen>
