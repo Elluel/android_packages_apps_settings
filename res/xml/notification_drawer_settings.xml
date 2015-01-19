@@ -31,7 +31,6 @@
             android:summaryOn="@string/qs_main_tiles_summary_on"
             android:summaryOff="@string/qs_main_tiles_summary_off"
             android:defaultValue="true" />
-
     </PreferenceCategory>
 
     <com.android.settings.terminus.SystemSettingSwitchPreference
