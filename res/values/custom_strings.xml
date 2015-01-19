@@ -396,8 +396,4 @@
     <string name="wakelock_blocker_warning_title">Proceed with caution</string>
     <string name="wakelock_blocker_warning">Blocking wakelocks have the potential to cause instability, crashes or data loss</string>
 
-    <!-- QuickSettings haptic feedback -->
-    <string name="quick_settings_vibrate_title">QS haptic feedback</string>
-    <string name="quick_settings_vibrate_summary">Vibrate when touching QS tiles</string>
-
 </resources>
