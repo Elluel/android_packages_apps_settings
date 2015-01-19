@@ -74,14 +74,14 @@
     <!-- CUSTOMIZATIONS -->
     <dashboard-category
             android:id="@+id/terminus_section"
-            android:title="@string/header_category_terminus" >
+            android:title="@string/header_category_lethargy" >
 
         <!-- TERMINUS TWEAKS -->
         <dashboard-tile
                 android:id="@+id/terminus_settings"
-                android:title="@string/terminus_settings_title"
+                android:title="@string/lethargy_settings_title"
                 android:fragment="com.android.settings.terminus.TerminusSettings"
-                android:icon="@drawable/ic_settings_terminus"
+                android:icon="@drawable/ic_settings_lethargy"
                 />
 
     </dashboard-category>
