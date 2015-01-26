@@ -26,7 +26,7 @@
             android:fragment="com.android.settings.terminus.qs.QSTiles" />
     </PreferenceCategory>
 
-    <com.android.settings.terminus.SystemSettingSwitchPreference
+    <com.android.settings.terminus.SecureSettingSwitchPreference
         android:key="sysui_qs_main_tiles"
         android:title="@string/qs_main_tiles_title"
         android:summaryOn="@string/qs_main_tiles_summary_on"
