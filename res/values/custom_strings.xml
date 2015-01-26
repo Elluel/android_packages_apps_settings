@@ -402,6 +402,10 @@
     <string name="qs_tile_cast_screen">Cast screen</string>
     <string name="qs_tile_hotspot">Hotspot</string>
 
+    <!-- Wifi detail view -->
+    <string name="qs_wifi_detail_title">Detailed Wi\u2011Fi view</string>
+    <string name="qs_wifi_detail_summary">Enable detailed view for Wi\u2011Fi in Quick Settings</string>
+
     <!-- Notifications as heads-up -->
     <string name="zen_heads_up_toggle_title">Heads-up notifications</string>
     <string name="zen_heads_up_toggle_summary">Allows incoming notifications that support the heads-up mode to be displayed at the top.</string>
