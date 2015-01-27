@@ -47,10 +47,10 @@ import android.widget.Switch;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
-import com.android.settings.cyanogenmod.PackageListAdapter;
-import com.android.settings.cyanogenmod.PackageListAdapter.PackageItem;
+import com.android.settings.terminus.PackageListAdapter;
+import com.android.settings.terminus.PackageListAdapter.PackageItem;
 import com.android.settings.SettingsActivity;
-import com.android.settings.cyanogenmod.BaseSystemSettingSwitchBar;
+import com.android.settings.terminus.BaseSystemSettingSwitchBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -437,7 +437,6 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
         mDisabledText.setVisibility(enabled ? View.GONE : View.VISIBLE);
     }
 
-    @Override
     public void onEnablerChanged(boolean isEnabled) {
         mLastEnabledState = Settings.System.getInt(getContentResolver(),
                 Settings.System.HEADS_UP_NOTIFICATION, 1) != 0;
