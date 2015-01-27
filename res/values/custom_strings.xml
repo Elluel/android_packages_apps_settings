@@ -381,6 +381,7 @@
     <string name="qs_tile_nfc">NFC</string>
     <string name="qs_tile_compass">Compass</string>
     <string name="qs_tile_lockscreen">Lock screen</string>
+    <string name="qs_tile_headsup">Heads up</string>
 
     <!-- Wifi detail view -->
     <string name="qs_wifi_detail_title">Detailed Wi\u2011Fi view</string>
