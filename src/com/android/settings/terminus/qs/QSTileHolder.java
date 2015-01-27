@@ -90,10 +90,6 @@ public class QSTileHolder {
                 resourceName = "ic_qs_hotspot_on";
                 stringId = R.string.qs_tile_hotspot;
                 break;
-            case QSConstants.TILE_DATA:
-                resourceName = "ic_qs_data_on";
-                stringId = R.string.qs_tile_data;
-                break;
             default:
                 return null;
         }

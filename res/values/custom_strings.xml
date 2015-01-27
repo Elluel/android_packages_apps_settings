@@ -389,6 +389,7 @@
     <string name="qs_advanced_location_title">Advanced location quick settings</string>
     <string name="qs_advanced_location_summary">Enable advanced settings for location in quick settings</string>
     <string name="display_rotation_title">Rotation</string>
+    <string name="mobile_data">Mobile data</string>
     
     <string name="qs_tile_wifi">Wi\u2011Fi</string>
     <string name="qs_tile_bluetooth">Bluetooth</string>
@@ -400,7 +401,6 @@
     <string name="qs_tile_location">Location</string>
     <string name="qs_tile_cast_screen">Cast screen</string>
     <string name="qs_tile_hotspot">Hotspot</string>
-    <string name="qs_tile_data">Mobile data</string>
 
     <!-- Wifi detail view -->
     <string name="qs_wifi_detail_title">Detailed Wi\u2011Fi view</string>
