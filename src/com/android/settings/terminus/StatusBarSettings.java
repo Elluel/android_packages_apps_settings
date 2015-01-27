@@ -43,8 +43,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements
     private SwitchPreference mStatusBarQuickQsPulldown;
     // Clock summary
     private PreferenceScreen mClockStyle;
-    // Heads up
-    private Preference mHeadsUp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,26 +81,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements
                 .findPreference(KEY_STATUS_BAR_CLOCK);
         updateClockStyleDescription();
 
-        // Heads up
-        mHeadsUp = findPreference(Settings.System.HEADS_UP_NOTIFICATION);
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mSettingsObserver.register(true);
-        
-        boolean headsUpEnabled = Settings.System.getInt(
-                getContentResolver(), Settings.System.HEADS_UP_NOTIFICATION, 1) != 0;
-        mHeadsUp.setSummary(headsUpEnabled
-                ? R.string.summary_heads_up_enabled : R.string.summary_heads_up_disabled);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mSettingsObserver.register(false);
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {

@@ -54,7 +54,7 @@
             android:title="@string/power_menu_expanded_desktop"
             android:fragment="com.android.settings.applications.ExpandedDesktopPreferenceFragment" />
 
-    <Preference
+    <PreferenceScreen
             android:key="heads_up_enabled"
             android:fragment="com.android.settings.headsup.HeadsUpSettings"
             android:title="@string/category_heads_up" />
