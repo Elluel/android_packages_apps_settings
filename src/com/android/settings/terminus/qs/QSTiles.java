@@ -49,7 +49,7 @@ public class QSTiles extends Fragment implements
     private DraggableGridView mDraggableGridView;
     private View mAddDeleteTile;
     private boolean mDraggingActive;
-    private Context mSystemUiContext;
+    private Resources mSystemUIResources;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +63,12 @@ public class QSTiles extends Fragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mSystemUiContext = Utils.createPackageContext(getActivity(), "com.android.systemui");
+        try {
+            Context context = getActivity().createPackageContext(Utils.SYSTEM_UI_PACKAGE_NAME, 0);
+            mSystemUIResources = context.getResources();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
         ContentResolver resolver = getActivity().getContentResolver();
         String order = Settings.Secure.getString(resolver, Settings.Secure.QS_TILES);
@@ -184,8 +189,7 @@ public class QSTiles extends Fragment implements
             }
         });
 
-        final QSListAdapter adapter = new QSListAdapter(getActivity(),
-                mSystemUiContext, tilesList);
+        final QSListAdapter adapter = new QSListAdapter(getActivity(), tilesList);
         new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.add_qs)
                 .setSingleChoiceItems(adapter, -1, selectionListener)
@@ -220,7 +224,7 @@ public class QSTiles extends Fragment implements
 
         if (item.name != null) {
             ImageView icon = (ImageView) qsTile.findViewById(android.R.id.icon);
-            Drawable d = Utils.getNamedDrawable(mSystemUiContext, item.resourceName);
+            Drawable d = Utils.getNamedDrawableFromSystemUI(mSystemUIResources, item.resourceName);
             d.setColorFilter(getResources().getColor(R.color.qs_tile_tint_color),
                     PorterDuff.Mode.SRC_ATOP);
             icon.setImageDrawable(d);

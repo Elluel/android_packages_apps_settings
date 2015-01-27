@@ -16,6 +16,8 @@
 package com.android.settings.terminus.qs;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -31,13 +33,17 @@ import com.android.settings.Utils;
 import java.util.List;
 
 public class QSListAdapter extends ArrayAdapter<QSTileHolder> {
-    private Context mSystemUiContext;
+    private Resources mSystemUIResources;
     private LayoutInflater mInflater;
-
-    public QSListAdapter(Context context, Context systemUiContext, List<QSTileHolder> tiles) {
-        super(context, 0, tiles);
+    public QSListAdapter(Context context, List<QSTileHolder> objects) {
+        super(context, 0, objects);
         mInflater = LayoutInflater.from(context);
-        mSystemUiContext = systemUiContext;
+        try {
+            Context sysUIContext = context.createPackageContext(Utils.SYSTEM_UI_PACKAGE_NAME, 0);
+            mSystemUIResources = sysUIContext.getResources();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -57,7 +63,7 @@ public class QSListAdapter extends ArrayAdapter<QSTileHolder> {
 
         holder.entry.setText(item.name);
         if (item.resourceName != null) {
-            Drawable d = Utils.getNamedDrawable(mSystemUiContext, item.resourceName);
+            Drawable d = Utils.getNamedDrawableFromSystemUI(mSystemUIResources, item.resourceName);
             d.setColorFilter(getContext().getResources().getColor(R.color.qs_tile_tint_color),
                     PorterDuff.Mode.SRC_ATOP);
             holder.icon.setImageDrawable(d);
