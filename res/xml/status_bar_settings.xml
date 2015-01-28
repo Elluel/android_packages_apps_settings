@@ -17,11 +17,6 @@
             android:entryValues="@array/status_bar_battery_percentage_values" />
 
     <PreferenceScreen
-            android:key="clock_style_pref"
-            android:fragment="com.android.settings.terminus.StatusBarClockStyle"
-            android:title="@string/status_bar_clock" />
-
-    <PreferenceScreen
             android:key="notification_drawer_settings"
             android:title="@string/notification_drawer_title"
             android:fragment="com.android.settings.terminus.NotificationDrawerSettings" />
