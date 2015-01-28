@@ -247,6 +247,8 @@
     <string name="show_unac_and_overcounted_stats_summary">Show in battery statistics unaccounted and over-counted usage.</string>
 
     <!-- Status bar - Battery -->
+    <string name="status_bar_battery_title">Battery icons</string>
+    <string name="status_bar_battery_summary">Change battery icons</string>
     <string name="status_bar_battery_style_title">Battery status style</string>
     <string name="status_bar_battery_style_icon_portrait">Icon portrait</string>
     <string name="status_bar_battery_style_icon_landscape">Icon landscape</string>
@@ -408,14 +410,15 @@
     <string name="heads_up_time_out_10sec">10 seconds</string>
     <string name="heads_up_time_out_never">Never</string>
 
-    <!-- Clock and date -->
-    <string name="clock_date_title">Clock and date style</string>
     <!-- Statusbar clock -->
     <string name="status_bar_clock_style_title">Clock style</string>
     <string name="status_bar_clock_style_right">Right</string>
     <string name="status_bar_clock_style_left">Left</string>
     <string name="status_bar_clock_style_center">Center</string>
     <string name="status_bar_clock_style_hidden">Hidden</string>
+    <string name="status_bar_clock">Clock &amp; date</string>
+    <string name="status_bar_clock_title">Clock &amp; date style</string>
+    <string name="status_bar_clock_summary">Change various clock &amp; date options</string> 
 
     <string name="status_bar_am_pm_title">AM/PM style</string>
     <string name="status_bar_am_pm_info">24-hour clock is enabled</string>
