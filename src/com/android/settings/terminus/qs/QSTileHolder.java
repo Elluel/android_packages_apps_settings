@@ -106,6 +106,10 @@ public class QSTileHolder {
                 resourceName = "ic_qs_ringer_audible";
                 stringId = R.string.qs_tile_headsup;
                 break;
+            case QSConstants.TILE_DATA:
+                resourceName = "ic_qs_data_on";
+                stringId = R.string.qs_tile_data;
+                break;
             default:
                 return null;
         }
