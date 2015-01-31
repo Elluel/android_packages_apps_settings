@@ -71,7 +71,7 @@ public class QSTileHolder {
                 stringId = R.string.qs_tile_airplane_mode;
                 break;
             case QSConstants.TILE_ROTATION:
-                resourceName = "ic_qs_rotation_locked";
+                resourceName = "ic_qs_rotation_unlocked";
                 stringId = R.string.qs_tile_display_rotation;
                 break;
             case QSConstants.TILE_FLASHLIGHT:
