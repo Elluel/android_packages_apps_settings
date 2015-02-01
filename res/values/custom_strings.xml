@@ -366,7 +366,7 @@
     <string name="qs_advanced_location_title">Advanced location quick settings</string>
     <string name="qs_advanced_location_summary">Enable advanced settings for location in quick settings</string>
 
-    <string name="qs_tile_wifi">Wi\u2011Fi</string>
+    <string name="qs_tile_wifi">Wi-Fi</string>
     <string name="qs_tile_bluetooth">Bluetooth</string>
     <string name="qs_tile_display_inversion">Color inversion</string>
     <string name="qs_tile_cellular_data">Data connection</string>
@@ -383,8 +383,8 @@
     <string name="qs_tile_data">Mobile data</string>
 
     <!-- Wifi detail view -->
-    <string name="qs_wifi_detail_title">Detailed Wi\u2011Fi view</string>
-    <string name="qs_wifi_detail_summary">Enable detailed view for Wi\u2011Fi in Quick Settings</string>
+    <string name="qs_wifi_detail_title">Detailed Wi-Fi view</string>
+    <string name="qs_wifi_detail_summary">Enable detailed view for Wi-Fi in Quick Settings</string>
 
     <!-- Expanded desktop -->
     <string name="power_menu_expanded_desktop">Expanded desktop</string>
