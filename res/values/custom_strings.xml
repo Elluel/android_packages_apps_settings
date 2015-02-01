@@ -386,6 +386,9 @@
     <string name="qs_wifi_detail_title">Detailed Wi-Fi view</string>
     <string name="qs_wifi_detail_summary">Enable detailed view for Wi-Fi in Quick Settings</string>
 
+    <!-- QuickSettings 4 columns -->
+    <string name="qs_four_columns_title">Show four tiles per row</string>
+
     <!-- Expanded desktop -->
     <string name="power_menu_expanded_desktop">Expanded desktop</string>
     <string name="expanded_hide_nothing">Hide nothing</string>
