@@ -383,7 +383,7 @@ public class NotificationSettings extends SettingsPreferenceFragment implements 
                 AudioManager.STREAM_NOTIFICATION);
 
         final boolean enabled = Settings.System.getInt(getContentResolver(),
-                Settings.Secure.VOLUME_LINK_NOTIFICATION, 1) == 1;
+                Settings.Secure.VOLUME_LINK_NOTIFICATION, 1) == 0;
 
         if (mNotificationPreference != null) {
             boolean show = !enabled && mVoiceCapable;
