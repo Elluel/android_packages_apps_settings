@@ -104,6 +104,8 @@ public class SecuritySettings extends SettingsPreferenceFragment
     private static final String KEY_TRUST_AGENT = "trust_agent";
     private static final String KEY_SCREEN_PINNING = "screen_pinning_settings";
 
+    private static final String KEY_LOCK_SCREEN_SHORTCUT_PREF = "lockscreen_shortcuts_settings";
+
     // These switch preferences need special handling since they're not all stored in Settings.
     private static final String SWITCH_PREFERENCE_KEYS[] = { KEY_LOCK_AFTER_TIMEOUT,
             KEY_LOCK_ENABLED, KEY_VISIBLE_PATTERN, KEY_VISIBLE_GESTURE, KEY_BIOMETRIC_WEAK_LIVELINESS,
@@ -592,6 +594,12 @@ public class SecuritySettings extends SettingsPreferenceFragment
         if (mResetCredentials != null) {
             mResetCredentials.setEnabled(!mKeyStore.isEmpty());
         }
+
+        Preference preference = getPreferenceScreen().findPreference(KEY_LOCK_SCREEN_SHORTCUT_PREF);
+        boolean lockScreenShortcutsEnabled = Settings.Secure.getInt(
+                getContentResolver(), Settings.Secure.ENABLE_LOCKSCREEN_TARGETS, 1) == 1;
+        preference.setSummary(lockScreenShortcutsEnabled
+                ? R.string.lockscreen_shortcuts_enabled : R.string.lockscreen_shortcuts_disabled);
     }
 
     @Override
