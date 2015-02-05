@@ -33,13 +33,11 @@
         <PreferenceScreen
                 android:id="@+id/app_circle_sidebar"
                 android:title="@string/app_circle_bar_title"
-                android:summary="@string/app_circle_sidebar_summary_real"
                 android:fragment="com.android.settings.terminus.AppCircleSidebar" />
 
         <PreferenceScreen
                 android:key="privacy_guard_manager"
                 android:fragment="com.android.settings.terminus.privacyguard.PrivacyGuardManager"
-                android:summary="@string/privacy_guard_manager_summary"
                 android:title="@string/privacy_guard_manager_title" />
 
         <PreferenceScreen
