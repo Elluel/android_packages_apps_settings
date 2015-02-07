@@ -37,12 +37,6 @@
                 android:title="@string/qs_four_columns_title"
                 android:defaultValue="false" />
 
-        <com.android.settings.terminus.SystemSettingSwitchPreference
-                android:key="quick_settings_collapse_panel"
-                android:title="@string/quick_settings_collapse_title"
-                android:summary="@string/quick_settings_collapse_summary"
-                android:defaultValue="false"/>
-
         <com.android.settings.terminus.SecureSettingSwitchPreference
                 android:key="qs_wifi_detail"
                 android:title="@string/qs_wifi_detail_title"
@@ -54,6 +48,12 @@
                 android:title="@string/qs_advanced_location_title"
                 android:summary="@string/qs_advanced_location_summary"
                 android:defaultValue="false" />
-
     </PreferenceCategory>
+
+    <com.android.settings.terminus.SystemSettingSwitchPreference
+            android:key="quick_settings_collapse_panel"
+            android:title="@string/quick_settings_collapse_title"
+            android:summary="@string/quick_settings_collapse_summary"
+            android:defaultValue="false"/>
+
 </PreferenceScreen>
