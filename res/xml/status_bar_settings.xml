@@ -9,10 +9,9 @@
             android:summary="@string/status_bar_battery_summary" />
 
     <PreferenceScreen
-            android:fragment="com.android.settings.terminus.StatusBarClockStyle"
             android:key="clock_style_pref"
-            android:title="@string/status_bar_clock"
-            android:summary="@string/status_bar_clock_summary" />
+            android:fragment="com.android.settings.terminus.StatusBarClockStyle"
+            android:title="@string/status_bar_clock" />
 
     <PreferenceScreen
             android:key="notification_drawer_settings"
