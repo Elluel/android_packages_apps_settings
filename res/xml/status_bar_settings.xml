@@ -13,6 +13,12 @@
             android:fragment="com.android.settings.terminus.StatusBarClockStyle"
             android:title="@string/status_bar_clock" />
 
+    <SwitchPreference
+            android:key="status_bar_greeting"
+            android:title="@string/status_bar_greeting_title"
+            android:summary="@string/status_bar_greeting_summary"
+            android:defaultValue="true" />
+
     <PreferenceScreen
             android:key="notification_drawer_settings"
             android:title="@string/notification_drawer_title"
