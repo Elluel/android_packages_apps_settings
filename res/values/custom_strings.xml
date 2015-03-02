@@ -6,8 +6,8 @@
     <string name="build_date_default">2014-01-01-0000</string>
 
     <!-- TERMINUS TWEAKS -->
-    <string name="header_category_lethargy">Lethargy</string>
-    <string name="lethargy_settings_title">ふかつどう</string>
+    <string name="header_category_elluel">Elluel</string>
+    <string name="elluel_settings_title">ふかつどう</string>
 
     <!-- General strings -->
     <string name="ok">OK</string>
