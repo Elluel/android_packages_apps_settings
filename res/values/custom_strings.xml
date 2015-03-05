@@ -419,6 +419,7 @@
     <string name="qs_battery_saver_tile">Battery saver</string>
     <string name="qs_brightness_tile">Brightness</string>
     <string name="qs_expanded_desktop_tile">Expanded desktop</string>
+    <string name="qs_tile_reboot">Reboot</string>
 
     <!-- Wifi detail view -->
     <string name="qs_wifi_detail_title">Detailed Wi-Fi view</string>
