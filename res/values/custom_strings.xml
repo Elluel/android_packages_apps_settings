@@ -2,12 +2,12 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- About phone screen, build date of ROM -->
-    <string name="build_date">ふかつどう build date</string>
+    <string name="build_date">えうれる build date</string>
     <string name="build_date_default">2014-01-01-0000</string>
 
     <!-- TERMINUS TWEAKS -->
     <string name="header_category_elluel">Elluel</string>
-    <string name="elluel_settings_title">ふかつどう</string>
+    <string name="elluel_settings_title">えうれる</string>
 
     <!-- General strings -->
     <string name="ok">OK</string>
