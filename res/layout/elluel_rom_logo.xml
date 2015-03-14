@@ -21,6 +21,6 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/rom_logo" />
+            android:src="@drawable/elluel_rom_logo" />
 
 </LinearLayout>
